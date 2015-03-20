@@ -11,101 +11,124 @@
 	<script src="js/bootstrap.min.js"></script>
 </head>
 <body>
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-xs-8">
-				<form class="form-horizontal">
-					<!-- Key words -->
-					<div class="form-group">
-						<label for="inputKeyWords" class="control-label col-xs-2">Key words*</label>
-						<div class="col-xs-6">
-							<input type="text" class="form-control" id="inputKeyWords" placeholder="Enter keyword">
-						</div>
-					</div>
-					<!-- Price range -->
-					<div class="form-group">
-						<label for="priceRange" class="control-label col-xs-2">Price range</label>
-						<div class="row">
-							<div class="col-xs-3">
-								<input type="number" class="form-control" id="minPrice" placeholder="from($)">
-							</div>
-							<div class="col-xs-3">
-								<input type="number" class="form-control" id="maxPrice" placeholder="to($)">
-							</div>		
-						</div>
-					</div>
-					<!-- Condition checkboxes -->
-					<div class="form-group">
-						<label for="condition" class="control-label col-xs-2">Condition</label>
-						<div class="col-xs-6">
-							<div class="checkbox-inline">
-								<input type="checkbox" name="new">New</input>
-							</div>
-							<div class="checkbox-inline">
-								<input type="checkbox" name="used">Used</input>
-							</div>
-							<div class="checkbox-inline">
-								<input type="checkbox" name="veryGood">Very Good</input>
-							</div>
-							<div class="checkbox-inline">
-								<input type="checkbox" name="good">Good</input>
-							</div>
-							<div class="checkbox-inline">
-								<input type="checkbox" name="acceptable">Acceptable</input>
-							</div>
-						</div>
-					</div>
-					<!-- Buying Formats -->
-					<div class="form-group">
-						<label for="condition" class="control-label col-xs-2">Buying Formats</label>
-						<div class="col-xs-10">
-							<div class="checkbox-inline">
-								<input type="checkbox" name="buyItNow">Buy it now
-							</div>
-							<div class="checkbox-inline">
-								<input type="checkbox" name="auction">Auction
-							</div>
-							<div class="checkbox-inline">
-								<input type="checkbox" name="classifiedAds">Classified Ads
-							</div>
-						</div>
-					</div>
-					<!-- Seller  -->
-					<div class="form-group">
-						<label for="condition" class="control-label col-xs-2">Seller</label>
-						<div class="col-xs-10">
-							<div class="checkbox-inline">
-								<input type="checkbox" name="returnAccepted">Return accepted
-							</div>
-						</div>
-					</div>
-					<!-- Shipping -->
-					<div class="form-group">
-						<label for="condition" class="control-label col-xs-2">Shipping</label>
-						<div class="col-xs-10">
-							<div class="checkbox-inline">
-								<input type="checkbox" name="freeShipping">Free Shipping
-							</div>
-							<div class="checkbox-inline">
-								<input type="checkbox" name="expeditedShipping">Expedited Shipping
-							</div>
-						</div>
-					</div>
-					<!-- Max handling days -->
-					<div class="form-group">
-						<div class="col-xs-offset-2 col-xs-8">
-							<input type="text" class="form-control" id="maxHandlingDays" placeholder="Max Handling Time (days)">
-						</div>
-					</div>
-					<!-- Sort By -->
-					<div class="form-group">
-						<div class="col-xs-offset-2 col-xs-10">
-							<button type="submit" class="btn btn-primary">Login</button>
-						</div>
-					</div>
-				</form>
+	<div class="container-fluid col-xs-9">
+		<form class="form-horizontal">
+			<!-- Key words -->
+			<div class="form-group">
+				<label for="inputKeyWords" class="control-label col-xs-3">Key words*</label>
+				<div class="col-xs-6">
+					<input type="text" class="form-control" id="inputKeyWords" placeholder="Enter keyword" required>
+				</div>
 			</div>
-		</div>
+			<!-- Price range -->
+			<div class="form-group">
+				<label for="priceRange" class="control-label col-xs-3">Price range</label>
+				<div class="row">
+					<div class="col-xs-2">
+						<input type="number" class="form-control has-error" id="minPrice" placeholder="from($)">
+					</div>
+					<div class="col-xs-2">
+						<input type="number" class="form-control" id="maxPrice" placeholder="to($)">
+					</div>		
+				</div>
+			</div>
+			<!-- Condition checkboxes -->
+			<div class="form-group">
+				<label for="condition" class="control-label col-xs-3">Condition</label>
+				<div class="col-xs-6">
+					<div class="checkbox-inline">
+						<input type="checkbox" name="new">New</input>
+					</div>
+					<div class="checkbox-inline">
+						<input type="checkbox" name="used">Used</input>
+					</div>
+					<div class="checkbox-inline">
+						<input type="checkbox" name="veryGood">Very Good</input>
+					</div>
+					<div class="checkbox-inline">
+						<input type="checkbox" name="good">Good</input>
+					</div>
+					<div class="checkbox-inline">
+						<input type="checkbox" name="acceptable">Acceptable</input>
+					</div>
+				</div>
+			</div>
+			<!-- Buying Formats -->
+			<div class="form-group">
+				<label for="buyingFormat" class="control-label col-xs-3">Buying Formats</label>
+				<div class="col-xs-6">
+					<div class="checkbox-inline">
+						<input type="checkbox" name="buyItNow">Buy it now
+					</div>
+					<div class="checkbox-inline">
+						<input type="checkbox" name="auction">Auction
+					</div>
+					<div class="checkbox-inline">
+						<input type="checkbox" name="classifiedAds">Classified Ads
+					</div>
+				</div>
+			</div>
+			<!-- Seller  -->
+			<div class="form-group">
+				<label for="seller" class="control-label col-xs-3">Seller</label>
+				<div class="col-xs-6">
+					<div class="checkbox-inline">
+						<input type="checkbox" name="returnAccepted">Return accepted
+					</div>
+				</div>
+			</div>
+			<!-- Shipping -->
+			<div class="form-group">
+				<label for="shipping" class="control-label col-xs-3">Shipping</label>
+				<div class="col-xs-6">
+					<div class="checkbox-inline">
+						<input type="checkbox" name="freeShipping">Free Shipping
+					</div>
+					<div class="checkbox-inline">
+						<input type="checkbox" name="expeditedShipping">Expedited Shipping
+					</div>
+				</div>
+			</div>
+			<!-- Max handling days -->
+			<div class="form-group">
+				<div class="col-xs-offset-3 col-xs-6">
+					<input type="text" class="form-control" id="maxHandlingDays" placeholder="Max Handling Time (days)">
+				</div>
+			</div>
+			<!-- Sort By -->
+			<div class="form-group">
+				<label for="sortBy" class="control-label col-xs-3">Sort by</label>
+				<div class="col-xs-6">
+					<select class="form-control" id="sortBy">
+						<option>Best Match</option>
+						<option>Price: highest first</option>
+						<option>Price+Shipping:	highest	first</option>
+						<option>Price+Shipping:	lowest first</option>
+					</select>
+				</div>
+			</div>
+			<!-- Results per page -->
+			<div class="form-group">
+				<label for="resultsPerPage" class="control-label col-xs-3">Results per page</label>
+				<div class="col-xs-6">
+					<select class="form-control" id="resultsPerPage">
+						<option>5</option>
+						<option>10</option>
+						<option>15</option>
+						<option>20</option>
+					</select>
+				</div>
+			</div>
+			<!-- Buttons -->
+			<div class="form-group">
+				<div class="col-xs-offset-3 col-xs-1">
+					<button type="reset" class="btn btn-default">Clear</button>
+				</div>
+				<div class="col-xs-1">
+					<button type="submit" class="btn btn-primary">Search</button>
+				</div>
+			</div>
+		</form>
 	</div>
 </body>
 </html>
