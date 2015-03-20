@@ -8,16 +8,18 @@
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/main.css" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
+	<script src="js/allScripts.js"></script>	
 </head>
 <body>
 	<div class="container-fluid col-xs-9">
-		<form class="form-horizontal">
+		<form class="form-horizontal" id="search-form">
 			<!-- Key words -->
 			<div class="form-group">
 				<label for="inputKeyWords" class="control-label col-xs-3">Key words*</label>
 				<div class="col-xs-6">
-					<input type="text" class="form-control" id="inputKeyWords" placeholder="Enter keyword" required>
+					<input type="text" class="form-control" id="inputKeyWords" name="keywords" placeholder="Enter keyword">
 				</div>
 			</div>
 			<!-- Price range -->
