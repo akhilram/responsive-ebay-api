@@ -10,26 +10,27 @@
             $("#search-form").validate({
                 rules: {
                     keywords: "required",
-                    // lastname: "required",
-                    // email: {
-                    //     required: true,
-                    //     email: true
-                    // },
-                    // password: {
-                    //     required: true,
-                    //     minlength: 5
-                    // },
-                    // agree: "required"
+                    minPrice: {
+                        min: 0,
+                        number: true
+                    },
+                    maxPrice: {
+                        min: 0,
+                        number: true,
+                        greaterThan: "minPrice"
+                    }
                 },
                 messages: {
                     keywords: "Please enter keywords",
-                    // lastname: "Please enter your lastname",
-                    // password: {
-                    //     required: "Please provide a password",
-                    //     minlength: "Your password must be at least 5 characters long"
-                    // },
-                    // email: "Please enter a valid email address",
-                    // agree: "Please accept our policy"
+                    minPrice: {
+                        min: "Price cannot be negative",
+                        number: "Price has to be a proper number"
+                    },
+                    maxPrice: {
+                        min: "Price cannot be negative",
+                        number: "Price has to be a proper number",
+                        greaterThan: "Price has to be greater than 'from price'"
+                    }
                 },
                 submitHandler: function(form) {
                     form.submit();
@@ -41,6 +42,19 @@
     //when the dom has loaded setup form validation rules
     $(D).ready(function($) {
         JQUERY4U.UTIL.setupFormValidation();
+
+        $.validator.addMethod("greaterThan",
+        function(value, element, param) {
+
+            console.log(arguments);
+            var i = parseFloat($("#minPrice").val());
+            var j = parseFloat($("#maxPrice").val());
+            var stat = (i<=j) ? true : false;
+            console.log(stat);
+            return stat;
+        }
+    );
+
     });
  
 })(jQuery, window, document);
