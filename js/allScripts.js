@@ -11,13 +11,18 @@
                 rules: {
                     keywords: "required",
                     minPrice: {
-                        min: 0,
-                        number: true
+                        number: true,
+                        min: 0
+                        
                     },
                     maxPrice: {
                         min: 0,
                         number: true,
                         greaterThan: "minPrice"
+                    },
+                    maxHandlingDays: {
+                        digits: true,
+                        min: 1
                     }
                 },
                 messages: {
@@ -29,7 +34,11 @@
                     maxPrice: {
                         min: "Price cannot be negative",
                         number: "Price has to be a proper number",
-                        greaterThan: "Price has to be greater than 'from price'"
+                        greaterThan: "Maximum price cannot be less than Minimum price"
+                    },
+                    maxHandlingDays: {
+                        number: "Maximum Handling days should be a valid number",
+                        min: "Maximum Handling days should be greater than or equal to 1"
                     }
                 },
                 submitHandler: function(form) {
@@ -45,10 +54,11 @@
 
         $.validator.addMethod("greaterThan",
         function(value, element, param) {
-
-            console.log(arguments);
             var i = parseFloat($("#minPrice").val());
             var j = parseFloat($("#maxPrice").val());
+            if (isNaN(i)||isNaN(j)) {
+                return true;
+            };
             var stat = (i<=j) ? true : false;
             console.log(stat);
             return stat;

@@ -3,3 +3,11 @@
     display: inline-block;
     font-weight: normal;
 }
+
+.control-label{
+	float: right;
+}
+
+img {
+	max-width: 50%;
+}
