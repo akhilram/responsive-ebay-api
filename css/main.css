@@ -1,13 +1,51 @@
 #search-form .form-group label.error {
 	color: #FB3A3A;
-    display: inline-block;
-    font-weight: normal;
+	display: inline-block;
+	font-weight: normal;
 }
 
-.control-label{
-	float: right;
+#results {
+	display: none;
 }
 
-img {
-	max-width: 50%;
+@media only screen and (max-width: 360px) {
+	#logo {
+		max-width: 30%;
+	}
+	#heading {
+		font-size: 15pt;
+	}
+	body {
+		padding: 10px;
+	}
+	#top {
+		padding-left: 0px;
+	}
+	#accept {
+		margin-left: 0px;
+	}
+}
+
+@media only screen and (min-width: 361px) and (max-width: 980px) {
+	#logo {
+		max-width: 30%;
+	}
+	body {
+		padding: 15%;
+	}
+}
+
+@media only screen and (min-width: 981px) {
+	.control-label{
+		float: right;
+	}
+	#logo {
+		max-width: 20%;
+	}
+	#heading {
+		font-size: 20pt;
+	}
+	#header {
+		margin-top: 5%;
+	}
 }

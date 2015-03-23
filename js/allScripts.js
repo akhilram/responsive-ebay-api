@@ -12,13 +12,13 @@
                     keywords: "required",
                     minPrice: {
                         number: true,
-                        min: 0
-                        
+                        min: 0,
+                        greaterThan: "minPrice"
                     },
                     maxPrice: {
                         min: 0,
-                        number: true,
-                        greaterThan: "minPrice"
+                        number: true
+                        // greaterThan: "minPrice"
                     },
                     maxHandlingDays: {
                         digits: true,

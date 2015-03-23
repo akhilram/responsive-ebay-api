@@ -13,19 +13,15 @@
 	<script src="js/allScripts.js"></script>	
 </head>
 <body>
-	<div class="container-fluid">
+	<div class="container-fluid" id="header">
 		<div class="row">
-			<div class="col-md-6 col-md-push-3">
-				<div class="col-md-3">
-					<img src="http://cs-server.usc.edu:45678/hw/hw8/ebay.jpg">
-				</div>
-				<div class="col-md-3">
-					<span><h3>Shopping</h3></span>
-				</div>
-				
+			<div class="col-md-6 col-md-push-3" id="top">
+				<p id="heading">
+					<img id="logo" src="http://cs-server.usc.edu:45678/hw/hw8/ebay.jpg">
+					Shopping
+				</p>
 			</div>
 		</div>
-		
 	</div>
 	<div class="container-fluid">
 		<div class="row">
@@ -50,10 +46,10 @@
 								<label for="priceRange" class="control-label">Price range</label>
 							</div>
 							<div class="col-sm-12 col-md-3">
-								<input type="number" class="form-control" id="minPrice" name="minPrice" placeholder="from($)">								
+								<input type="text" class="form-control" id="minPrice" name="minPrice" placeholder="from($)">								
 							</div>
 							<div class="col-sm-12 col-md-3">
-								<input type="number" class="form-control" id="maxPrice" name="maxPrice" placeholder="to($)">								
+								<input type="text" class="form-control" id="maxPrice" name="maxPrice" placeholder="to($)">								
 							</div>
 						</div>
 					</div>
@@ -76,7 +72,7 @@
 								<div class="checkbox-inline">
 									<input type="checkbox" name="good">Good</input>
 								</div>
-								<div class="checkbox-inline">
+								<div class="checkbox-inline" id="accept">
 									<input type="checkbox" name="acceptable">Acceptable</input>
 								</div>
 							</div>
@@ -180,6 +176,13 @@
 						</div>
 					</div>
 				</form>				
+			</div>
+		</div>
+		<div class="container-fluid" id="results">
+			<div class="row">
+				<div class="col-md-9 col-md-push-2">
+					<p>results</p>
+				</div>
 			</div>
 		</div>
 	</div>
