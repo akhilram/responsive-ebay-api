@@ -33,6 +33,12 @@
 	body {
 		padding: 15%;
 	}
+	#heading {
+		font-size: 25pt;
+	}
+	#top {
+		padding-left: 0px;
+	}
 }
 
 @media only screen and (min-width: 981px) {
@@ -49,3 +55,4 @@
 		margin-top: 5%;
 	}
 }
+	
