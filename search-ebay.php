@@ -7,6 +7,8 @@ $xml_query .= '&keywords=' . $_GET["keywords"];
 $xml_query .= '&sortOrder=' . $_GET["sortOrder"];
 $xml_query .= '&paginationInput.entriesPerPage=' . $_GET["entriesPerPage"];
 
+$xml_query .= '&outputSelector[0]=SellerInfo&outputSelector[1]=PictureURLSuperSize&outputSelector[2]=StoreInfo';
+
 $counter = 0;
 
 if(isset($_GET["MinPrice"]) && $_GET["MinPrice"] != '') {
@@ -84,9 +86,62 @@ if(isset($_GET["MaxHandlingTime"]) && $_GET["MaxHandlingTime"] != '') {
 	$counter += 1;
 }
 
-$xml_result = simplexml_load_file($xml_query);
-$json_result = json_encode($xml_result);
+$ebayXML = simplexml_load_file($xml_query);
 
-echo $json_result;
+$json_result = [];
+$json_result["ack"] = (string) $ebayXML->ack;
+$json_result["resultCount"] = (string) $ebayXML->paginationOutput->entriesPerPage;
+$json_result["pageNumber"] = (string) $ebayXML->paginationOutput->pageNumber;
+$json_result["itemCount"] = (string) $ebayXML->paginationOutput->totalEntries;
+
+$itemCount = 0;
+foreach ($ebayXML->searchResult->item as $item) {
+	$item_array = [];
+	$basicInfo = [];
+	$sellerInfo = [];
+	$shippingInfo = [];
+
+	$basicInfo["title"] = (string) $item->title;
+	$basicInfo["viewItemURL"] = (string)$item->viewItemURL;
+	$basicInfo["galleryURL"] = (string)$item->galleryURL;
+	$basicInfo["pictureURLSuperSize"] = (string)$item->pictureURLSuperSize;
+	$basicInfo["convertedCurrentPrice"] = (string)$item->sellingStatus->convertedCurrentPrice;
+	$basicInfo["shippingServiceCost"] = (string)$item->shippingInfo->shippingServiceCost;
+	$basicInfo["conditionDisplayName"] = (string)$item->condition->conditionDisplayName;
+	$basicInfo["listingType"] = (string)$item->listingInfo->listingType;
+	$basicInfo["location"] = (string)$item->location;
+	$basicInfo["categoryName"] = (string)$item->primaryCategory->categoryName;
+	$basicInfo["topRatedListing"] = (string)$item->topRatedListing;
+	
+	$sellerInfo["sellerUserName"] = (string)$item->sellerInfo->sellerUserName;
+	$sellerInfo["feedbackScore"] = (string)$item->sellerInfo->feedbackScore;
+	$sellerInfo["positiveFeedbackPercent"] = (string)$item->sellerInfo->positiveFeedbackPercent;
+	$sellerInfo["feedbackRatingStar"] = (string)$item->sellerInfo->topRatedSeller;
+	$sellerInfo["sellerStoreName"] = (string)$item->storeInfo->storeName;
+	$sellerInfo["sellerStoreURL"] = (string)$item->storeInfo->storeURL;
+		
+	$shippingInfo["shippingType"] = (string)$item->shippingInfo->shippingType;
+	$shipToLocations = [];
+	$itemDOM = new DOMDocument($item);
+	$locations = $itemDOM->getElementsByTagName('shipToLocations');
+	foreach ($locations as $location) {
+		$shipToLocations[] = (string)$location;
+	}
+	$shippingInfo["shipToLocations"] = $shipToLocations;
+	$shippingInfo["expeditedShipping"] = (string)$item->shippingInfo->expeditedShipping;
+	$shippingInfo["oneDayShippingAvailable"] = (string)$item->shippingInfo->oneDayShippingAvailable;
+	$shippingInfo["returnsAccepted"] = (string)$item->returnsAccepted;
+	$shippingInfo["handlingTime"] = (string)$item->shippingInfo->handlingTime;
+	
+	$item_array["basicInfo"] = $basicInfo;
+	$item_array["sellerInfo"] = $sellerInfo;
+	$item_array["shippingInfo"] = $shippingInfo;
+
+	$json_result["item" . $itemCount++] = $item_array;
+}
+
+$json_result["query"] = $xml_query;
+
+echo json_encode($json_result);
 
 ?>

@@ -78,35 +78,84 @@
     // call web server and get the json data
     function getJSONdata() {
         if($("#search-form").valid()) {
-            var url = "http://akhilram-cs571-webapp.elasticbeanstalk.com/search-ebay.php";
-            var data = {
-                "keywords": document.getElementById("inputKeyWords").value,
-                "MinPrice": document.getElementById("minPrice").value,
-                "MaxPrice": document.getElementById("maxPrice").value,
-                "New": document.getElementById("new").checked ? "on" : "",
-                "Used": document.getElementById("used").checked ? "on" : "",
-                "Good": document.getElementById("good").checked ? "on" : "",
-                "VeryGood": document.getElementById("veryGood").checked ? "on" : "",
-                "Acceptable": document.getElementById("acceptable").checked ? "on" : "",
+            // var url = "http://akhilram-cs571-webapp.elasticbeanstalk.com/search-ebay.php";
+            var url = "/search-ebay.php";
+            // var data = {
+            //     "keywords": document.getElementById("inputKeyWords").value,
+            //     "MinPrice": document.getElementById("minPrice").value,
+            //     "MaxPrice": document.getElementById("maxPrice").value,
+            //     "New": document.getElementById("new").checked ? "on" : "",
+            //     "Used": document.getElementById("used").checked ? "on" : "",
+            //     "Good": document.getElementById("good").checked ? "on" : "",
+            //     "VeryGood": document.getElementById("veryGood").checked ? "on" : "",
+            //     "Acceptable": document.getElementById("acceptable").checked ? "on" : "",
 
-                "FixedPrice": document.getElementById("buyItNow").checked ? "on" : "",
-                "Auction": document.getElementById("auction").checked ? "on" : "",
-                "Classified": document.getElementById("classifiedAds").checked ? "on" : "",
+            //     "FixedPrice": document.getElementById("buyItNow").checked ? "on" : "",
+            //     "Auction": document.getElementById("auction").checked ? "on" : "",
+            //     "Classified": document.getElementById("classifiedAds").checked ? "on" : "",
 
-                "ReturnsAcceptedOnly": document.getElementById("returnAccepted").checked ? "on" : "",
+            //     "ReturnsAcceptedOnly": document.getElementById("returnAccepted").checked ? "on" : "",
 
-                "FreeShippingOnly": document.getElementById("freeShipping").checked ? "on" : "",
-                "ExpeditedShippingType": document.getElementById("expeditedShipping").checked ? "on" : "",
+            //     "FreeShippingOnly": document.getElementById("freeShipping").checked ? "on" : "",
+            //     "ExpeditedShippingType": document.getElementById("expeditedShipping").checked ? "on" : "",
 
-                "MaxHandlingTime": document.getElementById("maxHandlingDays").value,
+            //     "MaxHandlingTime": document.getElementById("maxHandlingDays").value,
 
-                "sortOrder": document.getElementById("sortOrder").options[document.getElementById("sortOrder").selectedIndex].value,
-                "entriesPerPage": document.getElementById("resultsPerPage").options[document.getElementById("resultsPerPage").selectedIndex].value
-                
+            //     "sortOrder": document.getElementById("sortOrder").options[document.getElementById("sortOrder").selectedIndex].value,
+            //     "entriesPerPage": document.getElementById("resultsPerPage").options[document.getElementById("resultsPerPage").selectedIndex].value
+            // }
+
+            var data2 = {};
+            data2["keywords"] = document.getElementById("inputKeyWords").value;
+            data2["sortOrder"] = document.getElementById("sortOrder").options[document.getElementById("sortOrder").selectedIndex].value;
+            data2["entriesPerPage"] = document.getElementById("resultsPerPage").options[document.getElementById("resultsPerPage").selectedIndex].value;
+            data2["MaxHandlingTime"] = document.getElementById("maxHandlingDays").value;
+            if(document.getElementById("minPrice").value != '') { 
+                data2["MinPrice"] = document.getElementById("minPrice").value;
             }
+            if(document.getElementById("maxPrice").value != '') {
+                data2["MaxPrice"] = document.getElementById("maxPrice").value;
+            }
+            if(document.getElementById("new").checked) {
+                data2["New"] = "on";
+            }
+            if(document.getElementById("used").checked) {
+                data2["Used"] = "on";
+            }
+            if(document.getElementById("good").checked) {
+                data2["Good"] = "on";
+            }
+            if(document.getElementById("veryGood").checked) {
+                data2["VeryGood"] = "on";
+            }
+            if(document.getElementById("acceptable").checked) {
+                data2["Acceptable"] = "on";
+            }
+
+            if(document.getElementById("buyItNow").checked) {
+                data2["FixedPrice"] = "on";
+            }
+            if(document.getElementById("auction").checked) {
+                data2["Auction"] = "on";
+            }
+            if(document.getElementById("classifiedAds").checked) {
+                data2["Classified"] = "on";
+            }
+
+            if(document.getElementById("returnAccepted").checked) {
+                data2["ReturnsAcceptedOnly"] = "on";
+            }
+
+            if(document.getElementById("freeShipping").checked) {
+                data2["FreeShippingOnly"] = "on";
+            }
+            if(document.getElementById("expeditedShipping").checked) {
+                data2["ExpeditedShippingType"] = "on";
+            }
+
             $.ajax({    
                 url: url,
-                data: data,
+                data: data2,
                 dataType : "json",
                 type: 'GET',
                 success: function(output) {
