@@ -122,8 +122,7 @@ foreach ($ebayXML->searchResult->item as $item) {
 		
 	$shippingInfo["shippingType"] = (string)$item->shippingInfo->shippingType;
 	$shipToLocations = [];
-	$itemDOM = new DOMDocument($item);
-	$locations = $itemDOM->getElementsByTagName('shipToLocations');
+	$locations = json_decode(json_encode($item->shippingInfo->shipToLocations));
 	foreach ($locations as $location) {
 		$shipToLocations[] = (string)$location;
 	}
