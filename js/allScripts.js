@@ -78,33 +78,7 @@
     // call web server and get the json data
     function getJSONdata() {
         if($("#search-form").valid()) {
-            // var url = "http://akhilram-cs571-webapp.elasticbeanstalk.com/search-ebay.php";
             var url = "/search-ebay.php";
-            // var data = {
-            //     "keywords": document.getElementById("inputKeyWords").value,
-            //     "MinPrice": document.getElementById("minPrice").value,
-            //     "MaxPrice": document.getElementById("maxPrice").value,
-            //     "New": document.getElementById("new").checked ? "on" : "",
-            //     "Used": document.getElementById("used").checked ? "on" : "",
-            //     "Good": document.getElementById("good").checked ? "on" : "",
-            //     "VeryGood": document.getElementById("veryGood").checked ? "on" : "",
-            //     "Acceptable": document.getElementById("acceptable").checked ? "on" : "",
-
-            //     "FixedPrice": document.getElementById("buyItNow").checked ? "on" : "",
-            //     "Auction": document.getElementById("auction").checked ? "on" : "",
-            //     "Classified": document.getElementById("classifiedAds").checked ? "on" : "",
-
-            //     "ReturnsAcceptedOnly": document.getElementById("returnAccepted").checked ? "on" : "",
-
-            //     "FreeShippingOnly": document.getElementById("freeShipping").checked ? "on" : "",
-            //     "ExpeditedShippingType": document.getElementById("expeditedShipping").checked ? "on" : "",
-
-            //     "MaxHandlingTime": document.getElementById("maxHandlingDays").value,
-
-            //     "sortOrder": document.getElementById("sortOrder").options[document.getElementById("sortOrder").selectedIndex].value,
-            //     "entriesPerPage": document.getElementById("resultsPerPage").options[document.getElementById("resultsPerPage").selectedIndex].value
-            // }
-
             var data2 = {};
             data2["keywords"] = document.getElementById("inputKeyWords").value;
             data2["sortOrder"] = document.getElementById("sortOrder").options[document.getElementById("sortOrder").selectedIndex].value;
@@ -175,7 +149,76 @@
     }
 
     function processData(output) {
-        console.log(output["json"]);
+        addResultCount(output);
+        addResults(output);
+        document.getElementById('results').style.display = "inline";
+    }
+    function addResultCount(output) {
+        var pageStart = ((output["pageNumber"]-1)*output["pageNumber"])+1;
+        var pageEnd = pageStart + output["resultCount"] - 1;
+        document.getElementById('pagestat').innerHTML = pageStart + '-' + pageEnd + ' items out of ' + output["itemCount"];
+        document.getElementById('results').style.display = "inline";
+    }
+    function addResults(output) {
+        document.getElementById('resultset').innerHTML = '';
+        for(var key in output) {
+            if(key.substring(0,4) == "item" && key != "itemCount") {
+                addMediaObj(output[key]);
+            }
+        }
+    }
+    function addMediaObj(item) {
+        var divMedia = document.createElement("div");
+        divMedia.className = "mediaelement";
+        var divMediaLeft = document.createElement("div");
+        divMediaLeft.className = "media-left media-middle";
+        var _img = document.createElement("img");
+        _img.className = "media-object image-thump";
+        _img.src = item.basicInfo.galleryURL;
+        divMediaLeft.appendChild(_img);
+
+        var divMediaBody = document.createElement("div");
+        divMediaBody.className = "media-body";
+        var _a = document.createElement("a");
+        _a.href = item.basicInfo.viewItemURL;
+        var _h4 = document.createElement("p");
+        _h4.className = "media-heading";
+        _h4.innerHTML = item.basicInfo.title;
+        _a.appendChild(_h4);
+        divMediaBody.appendChild(_a);
+        var _b = document.createElement("b");
+        _b.innerHTML = "Price: $" + item.basicInfo.convertedCurrentPrice;
+        divMediaBody.appendChild(_b);
+        if(item.basicInfo.shippingServiceCost == 0) {
+            divMediaBody.innerHTML += "&nbsp(FREE SHIPPING)";
+        }
+        else {
+            divMediaBody.innerHTML += "&nbsp(+$" + item.basicInfo.shippingServiceCost + " for shipping)";
+        }
+
+        var _i = document.createElement("i");
+        _i.innerHTML = "&nbsp&nbsp&nbspLocation: " + item.basicInfo.location;
+        divMediaBody.appendChild(_i);
+
+        var _img_top = document.createElement("img");
+        
+        var details = document.createElement("a");
+        details.href = "#";
+        details.innerHTML = "&nbsp&nbspView Details";
+        divMediaBody.appendChild(details);
+
+        divMedia.appendChild(divMediaLeft);
+        divMedia.appendChild(divMediaBody);
+        document.getElementById('resultset').appendChild(divMedia);
+        // <div class="media">
+        //                     <div class="media-left media-middle">
+        //                         <img class="media-object image-thump" src="http://thumbs2.ebaystatic.com/m/mqajRbE-6CfHvlB64wNF5Ew/140.jpg">
+        //                     </div>
+        //                     <div class="media-body">
+        //                         <h4 class="media-heading">Middle aligned media</h4>
+        //                         Price: $84(Free Shipping) Location: Rainbow city, AL, USA View Details
+        //                     </div>
+        //                 </div>
     }
 
 })(jQuery, window, document);

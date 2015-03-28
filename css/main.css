@@ -32,6 +32,9 @@
 	#accept {
 		margin-left: 0px;
 	}
+	.image-thump {
+		max-width: 50%; 
+	}
 }
 
 @media only screen and (min-width: 361px) and (max-width: 980px) {
@@ -61,6 +64,19 @@
 	}
 	#header {
 		margin-top: 5%;
+	}
+	.image-thump {
+		width: 60px;
+		height: 60px;
+	}
+	#pagestat{
+		font-size: 15pt;
+	}
+	.media-heading {
+		font-size: 12pt;
+	}
+	.mediaelement {
+		margin-top: 10px;
 	}
 }
 	

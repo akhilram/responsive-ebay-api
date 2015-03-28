@@ -90,9 +90,9 @@ $ebayXML = simplexml_load_file($xml_query);
 
 $json_result = [];
 $json_result["ack"] = (string) $ebayXML->ack;
-$json_result["resultCount"] = (string) $ebayXML->paginationOutput->entriesPerPage;
-$json_result["pageNumber"] = (string) $ebayXML->paginationOutput->pageNumber;
-$json_result["itemCount"] = (string) $ebayXML->paginationOutput->totalEntries;
+$json_result["resultCount"] = (int) $ebayXML->paginationOutput->entriesPerPage;
+$json_result["pageNumber"] = (int) $ebayXML->paginationOutput->pageNumber;
+$json_result["itemCount"] = (int) $ebayXML->paginationOutput->totalEntries;
 
 $itemCount = 0;
 foreach ($ebayXML->searchResult->item as $item) {
@@ -105,18 +105,18 @@ foreach ($ebayXML->searchResult->item as $item) {
 	$basicInfo["viewItemURL"] = (string)$item->viewItemURL;
 	$basicInfo["galleryURL"] = (string)$item->galleryURL;
 	$basicInfo["pictureURLSuperSize"] = (string)$item->pictureURLSuperSize;
-	$basicInfo["convertedCurrentPrice"] = (string)$item->sellingStatus->convertedCurrentPrice;
-	$basicInfo["shippingServiceCost"] = (string)$item->shippingInfo->shippingServiceCost;
+	$basicInfo["convertedCurrentPrice"] = (float)$item->sellingStatus->convertedCurrentPrice;
+	$basicInfo["shippingServiceCost"] = (float)$item->shippingInfo->shippingServiceCost;
 	$basicInfo["conditionDisplayName"] = (string)$item->condition->conditionDisplayName;
 	$basicInfo["listingType"] = (string)$item->listingInfo->listingType;
 	$basicInfo["location"] = (string)$item->location;
 	$basicInfo["categoryName"] = (string)$item->primaryCategory->categoryName;
-	$basicInfo["topRatedListing"] = (string)$item->topRatedListing;
+	$basicInfo["topRatedListing"] = (bool)$item->topRatedListing;
 	
 	$sellerInfo["sellerUserName"] = (string)$item->sellerInfo->sellerUserName;
-	$sellerInfo["feedbackScore"] = (string)$item->sellerInfo->feedbackScore;
-	$sellerInfo["positiveFeedbackPercent"] = (string)$item->sellerInfo->positiveFeedbackPercent;
-	$sellerInfo["feedbackRatingStar"] = (string)$item->sellerInfo->topRatedSeller;
+	$sellerInfo["feedbackScore"] = (float)$item->sellerInfo->feedbackScore;
+	$sellerInfo["positiveFeedbackPercent"] = (float)$item->sellerInfo->positiveFeedbackPercent;
+	$sellerInfo["feedbackRatingStar"] = (bool)$item->sellerInfo->topRatedSeller;
 	$sellerInfo["sellerStoreName"] = (string)$item->storeInfo->storeName;
 	$sellerInfo["sellerStoreURL"] = (string)$item->storeInfo->storeURL;
 		
@@ -127,10 +127,10 @@ foreach ($ebayXML->searchResult->item as $item) {
 		$shipToLocations[] = (string)$location;
 	}
 	$shippingInfo["shipToLocations"] = $shipToLocations;
-	$shippingInfo["expeditedShipping"] = (string)$item->shippingInfo->expeditedShipping;
-	$shippingInfo["oneDayShippingAvailable"] = (string)$item->shippingInfo->oneDayShippingAvailable;
-	$shippingInfo["returnsAccepted"] = (string)$item->returnsAccepted;
-	$shippingInfo["handlingTime"] = (string)$item->shippingInfo->handlingTime;
+	$shippingInfo["expeditedShipping"] = (bool)$item->shippingInfo->expeditedShipping;
+	$shippingInfo["oneDayShippingAvailable"] = (bool)$item->shippingInfo->oneDayShippingAvailable;
+	$shippingInfo["returnsAccepted"] = (bool)$item->returnsAccepted;
+	$shippingInfo["handlingTime"] = (int)$item->shippingInfo->handlingTime;
 	
 	$item_array["basicInfo"] = $basicInfo;
 	$item_array["sellerInfo"] = $sellerInfo;
