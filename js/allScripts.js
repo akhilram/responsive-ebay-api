@@ -53,6 +53,14 @@
         JQUERY4U.UTIL.setupFormValidation();
         // $("#search-form").on('submit', getJSONdata);
         document.getElementById('submit').onclick = getJSONdata;
+        document.getElementById('1').onclick = getJSONdata;
+        document.getElementById('2').onclick = getJSONdata;
+        document.getElementById('3').onclick = getJSONdata;
+        document.getElementById('4').onclick = getJSONdata;
+        document.getElementById('5').onclick = getJSONdata;
+        document.getElementById('previous').onclick = getJSONdata;
+        document.getElementById('next').onclick = getJSONdata;
+
         // max price greater than min price
         $.validator.addMethod("greaterThan",
             function(value, element, param) {
@@ -76,14 +84,36 @@
 });
 
     // call web server and get the json data
-    function getJSONdata() {
+    function getJSONdata(pageNumber) {
         if($("#search-form").valid()) {
+
+            var pageNum = -1;
+            if(pageNumber.srcElement.id == "submit") {
+                pageNum = 1;
+            }
+            else if(pageNumber.srcElement.id == "previous" || pageNumber.srcElement.id == "next") {
+                var allPages = document.getElementsByClassName('page');
+                for (var i=0; i<allPages.length; i++) {
+                    if(allPages[i].parentNode.className == "active") {
+                        if(pageNumber.srcElement.id == "previous") 
+                            pageNum = i;
+                        else
+                            pageNum = i+2;
+                        break;
+                    }
+                }
+            }
+            else {
+                pageNum = parseInt(document.getElementById(pageNumber.srcElement.id).innerHTML);
+            }
+
             var url = "/search-ebay.php";
             var data2 = {};
             data2["keywords"] = document.getElementById("inputKeyWords").value;
             data2["sortOrder"] = document.getElementById("sortOrder").options[document.getElementById("sortOrder").selectedIndex].value;
             data2["entriesPerPage"] = document.getElementById("resultsPerPage").options[document.getElementById("resultsPerPage").selectedIndex].value;
             data2["MaxHandlingTime"] = document.getElementById("maxHandlingDays").value;
+            data2["pageNum"] = pageNum;
             if(document.getElementById("minPrice").value != '') { 
                 data2["MinPrice"] = document.getElementById("minPrice").value;
             }
@@ -133,12 +163,15 @@
                 dataType : "json",
                 type: 'GET',
                 success: function(output) {
-                    processData(output);
+                    processData(output, pageNum);
                 },
             //     error:  function(){
             //         console.log("Output error");
             //     }   
-            });
+        });
+            
+
+            
             console.log("Form submitted");
             return false;
         }
@@ -148,35 +181,92 @@
         }
     }
 
-    function processData(output) {
+    function processData(output, pageNumber) {
+        if(output.resultCount == 0) {
+            document.getElementById('results').style.display = "none";
+            document.getElementById('failure').style.display = "inline";
+            return;
+        }
+        document.getElementById('failure').style.display = "none";
         addResultCount(output);
         addResults(output);
         document.getElementById('results').style.display = "inline";
+        pageProcess(pageNumber);
+    }
+    function pageProcess(pageNum) {
+
+        if(pageNum == 1) {
+            document.getElementById('previous').parentNode.className = "disabled";
+        }
+        else {
+            document.getElementById('previous').parentNode.className = "";
+        }
+
+        var allPages = document.getElementsByClassName('page');
+        for (var i=0; i<allPages.length; i++) {
+            allPages[i].parentNode.className = "";
+        }
+        document.getElementById(pageNum.toString()).parentNode.className = "active";
+
     }
     function addResultCount(output) {
-        var pageStart = ((output["pageNumber"]-1)*output["pageNumber"])+1;
-        var pageEnd = pageStart + output["resultCount"] - 1;
-        document.getElementById('pagestat').innerHTML = pageStart + '-' + pageEnd + ' items out of ' + output["itemCount"];
+        var pageStart = ((output["pageNumber"]-1)*output["itemCount"])+1;
+        var pageEnd = Math.min(pageStart + output["itemCount"] - 1, output["resultCount"]);
+        document.getElementById('pagestat').innerHTML = pageStart + '-' + pageEnd + ' items out of ' + output["resultCount"];
         document.getElementById('results').style.display = "inline";
     }
     function addResults(output) {
         document.getElementById('resultset').innerHTML = '';
+        var count = 0;
         for(var key in output) {
             if(key.substring(0,4) == "item" && key != "itemCount") {
-                addMediaObj(output[key]);
+                addMediaObj(output[key], count);
+                count++;
             }
         }
     }
-    function addMediaObj(item) {
+    function addMediaObj(item, count) {
         var divMedia = document.createElement("div");
         divMedia.className = "mediaelement";
         var divMediaLeft = document.createElement("div");
         divMediaLeft.className = "media-left media-middle";
+        
+        //***image**********************************************
+        var _img_a = document.createElement("a");
+        _img_a.href = "#";
+        $(_img_a).attr("data-toggle", "modal");
+        $(_img_a).attr("data-target", count);
+        
         var _img = document.createElement("img");
         _img.className = "media-object image-thump";
         _img.src = item.basicInfo.galleryURL;
-        divMediaLeft.appendChild(_img);
+        _img_a.appendChild(_img);
 
+        divMediaLeft.appendChild(_img_a);
+        //***image**********************************************
+        
+        //***modalimage*****************************************
+        var modal = document.createElement("div");
+        modal.className = "modal fade " + count;
+        modal.tabIndex = "-1";
+        modal.role = "dialog";
+        $(modal).attr("aria-labelledby", count);
+        $(modal).attr("aria-hidden", "true");
+        $(modal).attr("role", "dialog");
+        // modal.aria-labelledby="myImgModalLabel";
+        // modal.aria-hidden="true";
+
+        var modalLg = document.createElement("div");
+        modalLg.className = "modal-dialog modal-lg";
+        var modalContent = document.createElement("div");
+        modalContent.className = "modal-content";
+        modalContent.innerHTML = "<img src=" + item.basicInfo.pictureURLSuperSize + ">";
+        modalLg.appendChild(modalContent);
+
+        modal.appendChild(modalLg);
+        divMediaLeft.appendChild(modal);
+        //***modalimage*****************************************
+        
         var divMediaBody = document.createElement("div");
         divMediaBody.className = "media-body";
         var _a = document.createElement("a");

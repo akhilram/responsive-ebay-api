@@ -7,7 +7,9 @@
 #results {
 	display: none;
 }
-
+#failure {
+	display: none;
+}
 .form-control.error {
 	border: 1px solid #FB3A3A;
 }

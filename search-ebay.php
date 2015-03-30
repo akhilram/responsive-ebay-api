@@ -6,6 +6,7 @@ $xml_query = 'http://svcs.ebay.com/services/search/FindingService/v1?siteid=0&OP
 $xml_query .= '&keywords=' . $_GET["keywords"];
 $xml_query .= '&sortOrder=' . $_GET["sortOrder"];
 $xml_query .= '&paginationInput.entriesPerPage=' . $_GET["entriesPerPage"];
+$xml_query .= '&paginationInput.pageNumber=' . $_GET["pageNum"];
 
 $xml_query .= '&outputSelector[0]=SellerInfo&outputSelector[1]=PictureURLSuperSize&outputSelector[2]=StoreInfo';
 
@@ -90,9 +91,9 @@ $ebayXML = simplexml_load_file($xml_query);
 
 $json_result = [];
 $json_result["ack"] = (string) $ebayXML->ack;
-$json_result["resultCount"] = (int) $ebayXML->paginationOutput->entriesPerPage;
+$json_result["itemCount"] = (int) $ebayXML->paginationOutput->entriesPerPage;
 $json_result["pageNumber"] = (int) $ebayXML->paginationOutput->pageNumber;
-$json_result["itemCount"] = (int) $ebayXML->paginationOutput->totalEntries;
+$json_result["resultCount"] = (int) $ebayXML->paginationOutput->totalEntries;
 
 $itemCount = 0;
 foreach ($ebayXML->searchResult->item as $item) {
