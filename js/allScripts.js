@@ -87,7 +87,6 @@
     function getJSONdata(pageNumber) {
         if($("#search-form").valid()) {
 
-            var pageNum = -1;
             if(pageNumber.srcElement.id == "submit") {
                 pageNum = 1;
             }
@@ -95,15 +94,26 @@
                 var allPages = document.getElementsByClassName('page');
                 for (var i=0; i<allPages.length; i++) {
                     if(allPages[i].parentNode.className == "active") {
-                        if(pageNumber.srcElement.id == "previous") 
-                            pageNum = i;
-                        else
-                            pageNum = i+2;
+                        if(pageNumber.srcElement.id == "previous") {
+                            if(document.getElementById('previous').parentNode.className == "disabled") {
+                                return false;
+                            }
+                            pageNum = parseInt(allPages[i].innerHTML)-1;
+                        }
+                        else {
+                            if(document.getElementById('next').parentNode.className == "disabled") {
+                                return false;
+                            }
+                            pageNum = parseInt(allPages[i].innerHTML)+1;
+                        }
                         break;
                     }
                 }
             }
             else {
+                if(document.getElementById(pageNumber.srcElement.id).parentNode.className == "disabled") {
+                    return false;
+                }
                 pageNum = parseInt(document.getElementById(pageNumber.srcElement.id).innerHTML);
             }
 
@@ -191,11 +201,14 @@
         addResultCount(output);
         addResults(output);
         document.getElementById('results').style.display = "inline";
-        pageProcess(pageNumber);
+        pageProcess(pageNumber, output["resultCount"], output["itemCount"]);
     }
-    function pageProcess(pageNum) {
+    function pageProcess(pageNum, resCount, itCount) {
 
-        if(pageNum == 1) {
+        var pageId = (pageNum%5 == 0 ? 5 : pageNum%5);
+        var maxpage = Math.ceil(resCount/itCount);
+
+        if(pageId == 1) {
             document.getElementById('previous').parentNode.className = "disabled";
         }
         else {
@@ -205,9 +218,32 @@
         var allPages = document.getElementsByClassName('page');
         for (var i=0; i<allPages.length; i++) {
             allPages[i].parentNode.className = "";
+            if(parseInt(allPages[i].innerHTML) > maxpage) {
+                allPages[i].parentNode.className = "disabled";
+            }
         }
-        document.getElementById(pageNum.toString()).parentNode.className = "active";
+        
+        document.getElementById(pageId.toString()).parentNode.className = "active";    
+        
+        var currHighest = parseInt(document.getElementById("5").innerHTML);
+        var currLowest = parseInt(document.getElementById("1").innerHTML);
 
+        if(pageNum == currHighest+1) {
+            for (var i=0; i<allPages.length; i++) {
+                allPages[i].innerHTML = parseInt(allPages[i].innerHTML)+5;
+            }
+        }
+        if(pageNum == currLowest-1) {
+            for (var i=0; i<allPages.length; i++) {
+                allPages[i].innerHTML = parseInt(allPages[i].innerHTML)-5;
+            }
+        }
+        if(currHighest >= maxpage) {
+            document.getElementById('next').parentNode.className = "disabled";
+        }
+        else {
+            document.getElementById('next').parentNode.className = "";
+        }
     }
     function addResultCount(output) {
         var pageStart = ((output["pageNumber"]-1)*output["itemCount"])+1;
