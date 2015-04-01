@@ -15,28 +15,49 @@
 </head>
 <body>
 	<script id="entry-template" type="text/x-handlebars-template">
-	{{#each items}}
-	<div class="mediaelement">
-		<div class="media-left media-middle">
-            <a href="#" data-toggle="modal" data-target=".item{{@index}}"><img class="media-object image-thump" src="{{basicInfo.galleryURL}}"></a>
-            <div class="modal fade item{{@index}}" tabindex="-1" aria-labelledby="item{{@index}}" aria-hidden="true" role="dialog">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content"><img src="{{basicInfo.pictureURLSuperSize}}"></div>
-                </div>
-            </div>
-        </div>
+		{{#each items}}
+		<div class="mediaelement">
+			<div class="media-left media-middle">
+				<a href="#" data-toggle="modal" data-target=".item{{@index}}"><img class="media-object image-thump" src="{{basicInfo.galleryURL}}"></a>
+				<div class="modal fade item{{@index}}" tabindex="-1" aria-labelledby="item{{@index}}" aria-hidden="true" role="dialog">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<h4 class="modal-title">{{basicInfo.title}}</h4>
+							</div>
+							<div class="modal-body">
+        						<img class = "modalImage" src="{{basicInfo.pictureURLSuperSize}}">
+      						</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
-        <div class="media-body">
-            <a href="{{basicInfo.viewItemURL}}">
-                <p class="media-heading">{{basicInfo.title}}</p>
-            </a>
-            <b>Price: ${{basicInfo.convertedCurrentPrice}}</b>
-            &nbsp;(FREE SHIPPING)
-            <i>&nbsp;&nbsp;&nbsp;Location: {{basicInfo.location}}</i>
-            <a href="#">&nbsp;&nbsp;View Details</a>
-        </div>
-    </div>
-    {{/each}}
+			<div class="media-body">
+				<a href="{{basicInfo.viewItemURL}}">
+					<p class="media-heading">{{basicInfo.title}}</p>
+				</a>
+				<span>
+					<b>Price: ${{basicInfo.convertedCurrentPrice}}</b>
+
+					{{#ifTrue basicInfo.shippingServiceCost 0}}
+					&nbsp;(FREE SHIPPING)
+					{{else}}
+					&nbsp;(+${{basicInfo.shippingServiceCost}} for shipping)
+					{{/ifTrue}}
+
+					<i>&nbsp;&nbsp;&nbsp;Location: {{basicInfo.location}}</i>
+
+					{{#ifTrue basicInfo.topRatedListing "true" }}
+					<a href=""><img class="toprated" src="http://cs-server.usc.edu:45678/hw/hw6/itemTopRated.jpg"></a>
+					{{/ifTrue}}
+
+					<a href="" class="viewdetails">View Details</a>
+				</span>
+			</div>
+		</div>
+		{{/each}}
 	</script>
 	<div class="container-fluid" id="header">
 		<div class="row">

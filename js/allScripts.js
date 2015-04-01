@@ -51,6 +51,12 @@
     //when the dom has loaded setup form validation rules
     $(D).ready(function($) {
         window.resultTemplate = Handlebars.compile($("#entry-template").html());
+        Handlebars.registerHelper('ifTrue', function(v1, v2, options) {
+            if(v1 == v2) {
+                return options.fn(this);
+            }
+            return options.inverse(this);
+        });
 
         JQUERY4U.UTIL.setupFormValidation();
         

@@ -90,5 +90,10 @@
 	.viewdetails {
 		margin-left: 10px;
 	}
+	.modalImage {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	}
 }
 	
