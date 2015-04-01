@@ -50,16 +50,11 @@
 
     //when the dom has loaded setup form validation rules
     $(D).ready(function($) {
+        window.resultTemplate = Handlebars.compile($("#entry-template").html());
+
         JQUERY4U.UTIL.setupFormValidation();
-        // $("#search-form").on('submit', getJSONdata);
-        document.getElementById('submit').onclick = getJSONdata;
-        document.getElementById('1').onclick = getJSONdata;
-        document.getElementById('2').onclick = getJSONdata;
-        document.getElementById('3').onclick = getJSONdata;
-        document.getElementById('4').onclick = getJSONdata;
-        document.getElementById('5').onclick = getJSONdata;
-        document.getElementById('previous').onclick = getJSONdata;
-        document.getElementById('next').onclick = getJSONdata;
+        
+        $(".paginate").click(getJSONData);
 
         // max price greater than min price
         $.validator.addMethod("greaterThan",
@@ -84,17 +79,20 @@
 });
 
     // call web server and get the json data
-    function getJSONdata(pageNumber) {
+    function getJSONData(e) {
         if($("#search-form").valid()) {
 
-            if(pageNumber.srcElement.id == "submit") {
+            var id = ($(e.target)).attr('id');
+            
+            //derive page
+            if(id == "submit") {
                 pageNum = 1;
             }
-            else if(pageNumber.srcElement.id == "previous" || pageNumber.srcElement.id == "next") {
+            else if(id == "previous" || id == "next") {
                 var allPages = document.getElementsByClassName('page');
                 for (var i=0; i<allPages.length; i++) {
                     if(allPages[i].parentNode.className == "active") {
-                        if(pageNumber.srcElement.id == "previous") {
+                        if(id == "previous") {
                             if(document.getElementById('previous').parentNode.className == "disabled") {
                                 return false;
                             }
@@ -111,12 +109,13 @@
                 }
             }
             else {
-                if(document.getElementById(pageNumber.srcElement.id).parentNode.className == "disabled") {
+                if(document.getElementById(id).parentNode.className == "disabled") {
                     return false;
                 }
-                pageNum = parseInt(document.getElementById(pageNumber.srcElement.id).innerHTML);
+                pageNum = parseInt(document.getElementById(id).innerHTML);
             }
 
+            //fill parameters for ajax get
             var url = "/search-ebay.php";
             var data2 = {};
             data2["keywords"] = document.getElementById("inputKeyWords").value;
@@ -208,7 +207,7 @@
         var pageId = (pageNum%5 == 0 ? 5 : pageNum%5);
         var maxpage = Math.ceil(resCount/itCount);
 
-        if(pageId == 1) {
+        if(pageNum == 1) {
             document.getElementById('previous').parentNode.className = "disabled";
         }
         else {
@@ -252,99 +251,19 @@
         document.getElementById('results').style.display = "inline";
     }
     function addResults(output) {
+        
         document.getElementById('resultset').innerHTML = '';
         var count = 0;
+        var itemArray = [];
         for(var key in output) {
             if(key.substring(0,4) == "item" && key != "itemCount") {
-                addMediaObj(output[key], count);
+                // addMediaObj(output[key], count);
                 count++;
+                itemArray.push(output[key]);
             }
         }
+        var result = resultTemplate({items:itemArray});
+        $("#resultset").html(result);
     }
-    function addMediaObj(item, count) {
-        var divMedia = document.createElement("div");
-        divMedia.className = "mediaelement";
-        var divMediaLeft = document.createElement("div");
-        divMediaLeft.className = "media-left media-middle";
-        
-        //***image**********************************************
-        var _img_a = document.createElement("a");
-        _img_a.href = "#";
-        $(_img_a).attr("data-toggle", "modal");
-        $(_img_a).attr("data-target", count);
-        
-        var _img = document.createElement("img");
-        _img.className = "media-object image-thump";
-        _img.src = item.basicInfo.galleryURL;
-        _img_a.appendChild(_img);
-
-        divMediaLeft.appendChild(_img_a);
-        //***image**********************************************
-        
-        //***modalimage*****************************************
-        var modal = document.createElement("div");
-        modal.className = "modal fade " + count;
-        modal.tabIndex = "-1";
-        modal.role = "dialog";
-        $(modal).attr("aria-labelledby", count);
-        $(modal).attr("aria-hidden", "true");
-        $(modal).attr("role", "dialog");
-        // modal.aria-labelledby="myImgModalLabel";
-        // modal.aria-hidden="true";
-
-        var modalLg = document.createElement("div");
-        modalLg.className = "modal-dialog modal-lg";
-        var modalContent = document.createElement("div");
-        modalContent.className = "modal-content";
-        modalContent.innerHTML = "<img src=" + item.basicInfo.pictureURLSuperSize + ">";
-        modalLg.appendChild(modalContent);
-
-        modal.appendChild(modalLg);
-        divMediaLeft.appendChild(modal);
-        //***modalimage*****************************************
-        
-        var divMediaBody = document.createElement("div");
-        divMediaBody.className = "media-body";
-        var _a = document.createElement("a");
-        _a.href = item.basicInfo.viewItemURL;
-        var _h4 = document.createElement("p");
-        _h4.className = "media-heading";
-        _h4.innerHTML = item.basicInfo.title;
-        _a.appendChild(_h4);
-        divMediaBody.appendChild(_a);
-        var _b = document.createElement("b");
-        _b.innerHTML = "Price: $" + item.basicInfo.convertedCurrentPrice;
-        divMediaBody.appendChild(_b);
-        if(item.basicInfo.shippingServiceCost == 0) {
-            divMediaBody.innerHTML += "&nbsp(FREE SHIPPING)";
-        }
-        else {
-            divMediaBody.innerHTML += "&nbsp(+$" + item.basicInfo.shippingServiceCost + " for shipping)";
-        }
-
-        var _i = document.createElement("i");
-        _i.innerHTML = "&nbsp&nbsp&nbspLocation: " + item.basicInfo.location;
-        divMediaBody.appendChild(_i);
-
-        var _img_top = document.createElement("img");
-        
-        var details = document.createElement("a");
-        details.href = "#";
-        details.innerHTML = "&nbsp&nbspView Details";
-        divMediaBody.appendChild(details);
-
-        divMedia.appendChild(divMediaLeft);
-        divMedia.appendChild(divMediaBody);
-        document.getElementById('resultset').appendChild(divMedia);
-        // <div class="media">
-        //                     <div class="media-left media-middle">
-        //                         <img class="media-object image-thump" src="http://thumbs2.ebaystatic.com/m/mqajRbE-6CfHvlB64wNF5Ew/140.jpg">
-        //                     </div>
-        //                     <div class="media-body">
-        //                         <h4 class="media-heading">Middle aligned media</h4>
-        //                         Price: $84(Free Shipping) Location: Rainbow city, AL, USA View Details
-        //                     </div>
-        //                 </div>
-    }
-
+    
 })(jQuery, window, document);

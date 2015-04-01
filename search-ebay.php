@@ -112,7 +112,7 @@ foreach ($ebayXML->searchResult->item as $item) {
 	$basicInfo["listingType"] = (string)$item->listingInfo->listingType;
 	$basicInfo["location"] = (string)$item->location;
 	$basicInfo["categoryName"] = (string)$item->primaryCategory->categoryName;
-	$basicInfo["topRatedListing"] = (bool)$item->topRatedListing;
+	$basicInfo["topRatedListing"] = (string)$item->topRatedListing;
 	
 	$sellerInfo["sellerUserName"] = (string)$item->sellerInfo->sellerUserName;
 	$sellerInfo["feedbackScore"] = (float)$item->sellerInfo->feedbackScore;

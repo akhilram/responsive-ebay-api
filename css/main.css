@@ -80,5 +80,15 @@
 	.mediaelement {
 		margin-top: 10px;
 	}
+	.toprated {
+		max-width: 5%;
+	}
+	.fblogo {
+		max-width: 3%;
+		margin-left: 10px;
+	}
+	.viewdetails {
+		margin-left: 10px;
+	}
 }
 	
