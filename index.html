@@ -17,7 +17,7 @@
 	<script id="entry-template" type="text/x-handlebars-template">
 		{{#each items}}
 		<div class="mediaelement">
-			<div class="media-left media-middle">
+			<div class="media-left media-top">
 				<a href="#" data-toggle="modal" data-target=".item{{@index}}"><img class="media-object image-thump" src="{{basicInfo.galleryURL}}"></a>
 				<div class="modal fade item{{@index}}" tabindex="-1" aria-labelledby="item{{@index}}" aria-hidden="true" role="dialog">
 					<div class="modal-dialog modal-lg">
@@ -27,8 +27,8 @@
 								<h4 class="modal-title">{{basicInfo.title}}</h4>
 							</div>
 							<div class="modal-body">
-        						<img class = "modalImage" src="{{basicInfo.pictureURLSuperSize}}">
-      						</div>
+								<img class = "modalImage" src="{{basicInfo.pictureURLSuperSize}}">
+							</div>
 						</div>
 					</div>
 				</div>
@@ -50,11 +50,173 @@
 					<i>&nbsp;&nbsp;&nbsp;Location: {{basicInfo.location}}</i>
 
 					{{#ifTrue basicInfo.topRatedListing "true" }}
-					<a href=""><img class="toprated" src="http://cs-server.usc.edu:45678/hw/hw6/itemTopRated.jpg"></a>
+					<img class="toprated" src="http://cs-server.usc.edu:45678/hw/hw6/itemTopRated.jpg">
 					{{/ifTrue}}
 
-					<a href="" class="viewdetails">View Details</a>
+					<a class="viewdetails" data-toggle="collapse" href="#collapse{{@index}}" aria-expanded="false" aria-controls="collapse{{@index}}">View Details</a>
+
+					<img class="fblogo" src="http://cs-server.usc.edu:45678/hw/hw8/fb.png">
+
 				</span>
+				<div class="collapse" id="collapse{{@index}}">
+					<div role="tabpanel">
+
+						<!-- Nav tabs -->
+						<ul class="nav nav-tabs" role="tablist">
+							<li role="presentation" class="active"><a href="#basic{{@index}}" aria-controls="basic{{@index}}" role="tab" data-toggle="tab">Basic Info</a></li>
+							<li role="presentation"><a href="#seller{{@index}}" aria-controls="seller{{@index}}" role="tab" data-toggle="tab">Seller Info</a></li>
+							<li role="presentation"><a href="#shipping{{@index}}" aria-controls="shipping{{@index}}" role="tab" data-toggle="tab">Shipping Info</a></li>
+						</ul>
+
+						<!-- Tab panes -->
+						<div class="tab-content">
+							<div role="tabpanel" class="tab-pane active" id="basic{{@index}}">
+								<div class="row"> 
+									<div class="col-md-4">
+										Category name
+									</div>
+									<div class="col-md-6">
+										{{basicInfo.categoryName}}
+									</div>
+								</div>
+								<div class="row"> 
+									<div class="col-md-4">
+										Condition
+									</div>
+									<div class="col-md-6">
+										{{basicInfo.conditionDisplayName}}
+									</div>
+								</div>
+								<div class="row"> 
+									<div class="col-md-4">
+										Buying Format
+									</div>
+									<div class="col-md-6">
+										{{basicInfo.conditionDisplayName}}
+									</div>
+								</div>
+							</div>
+
+							<div role="tabpanel" class="tab-pane" id="seller{{@index}}">
+								<div class="row"> 
+									<div class="col-md-4">
+										User name
+									</div>
+									<div class="col-md-6">
+										{{sellerInfo.sellerUserName}}
+									</div>
+								</div>
+								<div class="row"> 
+									<div class="col-md-4">
+										Feedback score
+									</div>
+									<div class="col-md-6">
+										{{sellerInfo.feedbackScore}}
+									</div>
+								</div>
+								<div class="row"> 
+									<div class="col-md-4">
+										Positive feedback
+									</div>
+									<div class="col-md-6">
+										{{sellerInfo.positiveFeedbackPercent}}%
+									</div>
+								</div>
+								<div class="row"> 
+									<div class="col-md-4">
+										Feedback rating
+									</div>
+									<div class="col-md-6">
+										{{sellerInfo.feedbackRatingStar}}
+									</div>
+								</div>
+								<div class="row"> 
+									<div class="col-md-4">
+										Top rated
+									</div>
+									<div class="col-md-6">
+										{{#ifTrue sellerInfo.topRatedSeller "true"}}
+										<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+										{{else}}
+										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+										{{/ifTrue}}
+									</div>
+								</div>
+								<div class="row"> 
+									<div class="col-md-4">
+										Store
+									</div>
+									<div class="col-md-6">
+										<a href="{{sellerInfo.sellerStoreURL}}" target="_blank">{{sellerInfo.sellerStoreName}}</a>
+									</div>
+								</div>
+							</div>
+							
+							<div role="tabpanel" class="tab-pane" id="shipping{{@index}}">
+								<div class="row"> 
+									<div class="col-md-4">
+										Shipping type
+									</div>
+									<div class="col-md-6">
+										{{shippingInfo.shippingType}}
+									</div>
+								</div>
+								<div class="row"> 
+									<div class="col-md-4">
+										Handling time
+									</div>
+									<div class="col-md-6">
+										{{shippingInfo.handlingTime}} day(s)
+									</div>
+								</div>
+								<div class="row"> 
+									<div class="col-md-4">
+										Shipping loactions
+									</div>
+									<div class="col-md-6">
+										{{shippingInfo.shipToLocations}}
+									</div>
+								</div>
+								<div class="row"> 
+									<div class="col-md-4">
+										Expedited shipping
+									</div>
+									<div class="col-md-6">
+										{{#ifTrue shippingInfo.expeditedShipping "true"}}
+										<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+										{{else}}
+										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+										{{/ifTrue}}
+									</div>
+								</div>
+								<div class="row"> 
+									<div class="col-md-4">
+										One day shipping 
+									</div>
+									<div class="col-md-6">
+										{{#ifTrue shippingInfo.oneDayShippingAvailable "true"}}
+										<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+										{{else}}
+										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+										{{/ifTrue}}
+									</div>
+								</div>
+								<div class="row"> 
+									<div class="col-md-4">
+										Returns accepted
+									</div>
+									<div class="col-md-6">
+										{{#ifTrue shippingInfo.returnsAccepted "true"}}
+										<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+										{{else}}
+										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+										{{/ifTrue}}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		{{/each}}

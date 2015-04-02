@@ -4,6 +4,13 @@
 	font-weight: normal;
 }
 
+.glyphicon-ok {
+	color: green;
+}
+.glyphicon-remove {
+	color: red;			
+}
+
 #results {
 	display: none;
 }
@@ -36,6 +43,13 @@
 	}
 	.image-thump {
 		max-width: 50%; 
+	}
+	.toprated {
+		max-width: 30%;
+	}
+	.fblogo {
+		max-width: 30%;
+		/*margin-left: 10px;*/
 	}
 }
 
@@ -94,6 +108,9 @@
 		display: block;
 		margin-left: auto;
 		margin-right: auto;
+	}
+	.collapse {
+		margin-top: 10px;
 	}
 }
 	

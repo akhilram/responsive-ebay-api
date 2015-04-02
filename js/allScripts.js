@@ -57,7 +57,7 @@
             }
             return options.inverse(this);
         });
-
+        
         JQUERY4U.UTIL.setupFormValidation();
         
         $(".paginate").click(getJSONData);
@@ -264,6 +264,8 @@
         for(var key in output) {
             if(key.substring(0,4) == "item" && key != "itemCount") {
                 // addMediaObj(output[key], count);
+                var thisI = output[key];
+                output[key].shippingInfo.shippingType = output[key].shippingInfo.shippingType.replace(/([A-Z])/g, " $1");
                 count++;
                 itemArray.push(output[key]);
             }
