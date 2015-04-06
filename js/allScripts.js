@@ -1,11 +1,11 @@
-(function($,W,D)
-{
-    var JQUERY4U = {};
-
-    JQUERY4U.UTIL =
+    (function($,W,D)
     {
-        setupFormValidation: function()
+        var JQUERY4U = {};
+
+        JQUERY4U.UTIL =
         {
+            setupFormValidation: function()
+            {
             //form validation rules
             $("#search-form").validate({
                 rules: {
@@ -76,6 +76,16 @@
             }
             );
 
+        $.ajaxSetup({ cache: true });
+        $.getScript('//connect.facebook.net/en_UK/all.js', function(){
+            FB.init({
+              appId: '1480111102248684',
+          });     
+            
+        });
+
+        
+
         // $.validator.addMethod("crossfield",
         //     function(value, element, param) {
         //         $("")
@@ -87,7 +97,7 @@
     // call web server and get the json data
     function getJSONData(e) {
         if($("#search-form").valid()) {
-
+            // console.log(window.fbAsyncInit);
             var id = ($(e.target)).attr('id');
             
             //derive page
@@ -257,7 +267,7 @@
         document.getElementById('results').style.display = "inline";
     }
     function addResults(output) {
-        
+
         document.getElementById('resultset').innerHTML = '';
         var count = 0;
         var itemArray = [];
@@ -272,6 +282,67 @@
         }
         var result = resultTemplate({items:itemArray});
         $("#resultset").html(result);
+        $(".fblogo").click(postToFB); 
     }
-    
+
+    function postToFB(e) {
+        console.log('clicked');
+        e.preventDefault();
+
+        var itemDiv = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+
+        var img = itemDiv.getElementsByClassName("image-thump");
+        img = img[0];
+        var title = itemDiv.getElementsByClassName("media-heading");
+        title = title[0];
+        var link = title.parentNode.href;
+
+        var desc = '';
+        var temp = itemDiv.getElementsByTagName("b");
+        desc += temp[0].innerHTML;
+        temp = itemDiv.getElementsByTagName("span");
+        temp = temp[1];
+        temp = temp.childNodes[2].textContent;
+        desc += temp;
+        temp = itemDiv.getElementsByTagName("i");
+        desc += temp[0].innerHTML;
+
+
+        FB.ui({
+            method: 'feed',
+            picture: img.src,
+            link: link,
+            caption: 'Search information from ebay.com',
+            title: title.innerHTML,
+            description: desc,
+
+        }, function(response){});
+        return false;
+    }
+
+    // function statusChangeCallback(response) {
+    //     console.log('statusChangeCallback');
+    //     console.log(response);
+    //     if (response.status === 'connected') {
+    //         testAPI();
+    //     } 
+    //     else if (response.status === 'not_authorized') {
+    //         document.getElementById('status').innerHTML = 'Please log ' + 'into this app.';
+    //     } 
+    //     else {
+    //         document.getElementById('status').innerHTML = 'Please log ' + 'into Facebook.';
+    //     }
+    // }
+
+    // function checkLoginState() {
+    //     FB.getLoginStatus(function(response) {
+    //       statusChangeCallback(response);
+    //   });
+    // }
+
+    // FB.getLoginStatus(function(response) {
+    // statusChangeCallback(response);
+    // });
+
+
 })(jQuery, window, document);
