@@ -17,200 +17,207 @@
 	<script id="entry-template" type="text/x-handlebars-template">
 		{{#each items}}
 		<div class="mediaelement">
-			<div class="media-left media-top">
-				<a href="#" data-toggle="modal" data-target=".item{{@index}}"><img class="media-object image-thump" src="{{basicInfo.galleryURL}}"></a>
-				<div class="modal fade item{{@index}}" tabindex="-1" aria-labelledby="item{{@index}}" aria-hidden="true" role="dialog">
-					<div class="modal-dialog modal-lg">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-								<h4 class="modal-title">{{basicInfo.title}}</h4>
-							</div>
-							<div class="modal-body">
-								<img class = "modalImage" src="{{basicInfo.pictureURLSuperSize}}">
+			<div class="row">
+				<div class="media-left media-top col-xs-3 col-sm-2 col-md-1">
+					<a href="#" data-toggle="modal" data-target=".item{{@index}}"><img class="media-object image-thump" src="{{basicInfo.galleryURL}}"></a>
+					<div class="modal fade item{{@index}}" tabindex="-1" aria-labelledby="item{{@index}}" aria-hidden="true" role="dialog">
+						<div class="modal-dialog modal-lg">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									<h4 class="modal-title">{{basicInfo.title}}</h4>
+								</div>
+								<div class="modal-body">
+									<img class = "modalImage" src="{{basicInfo.pictureURLSuperSize}}">
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 
-			<div class="media-body">
-				<a href="{{basicInfo.viewItemURL}}">
-					<p class="media-heading">{{basicInfo.title}}</p>
-				</a>
-				<span>
-					<b>Price: ${{basicInfo.convertedCurrentPrice}}</b>
+				<div class="media-body">
+					<a href="{{basicInfo.viewItemURL}}">
+						<p class="media-heading">{{basicInfo.title}}</p>
+					</a>
+					<div class="row">
+						<div class="col-xs-12">
+							<span>
+								<b>Price: ${{basicInfo.convertedCurrentPrice}}</b>
 
-					{{#ifTrue basicInfo.shippingServiceCost 0}}
-					&nbsp;(FREE SHIPPING)
-					{{else}}
-					&nbsp;(+${{basicInfo.shippingServiceCost}} for shipping)
-					{{/ifTrue}}
+								{{#ifTrue basicInfo.shippingServiceCost 0}}
+								&nbsp;(FREE SHIPPING)
+								{{else}}
+								&nbsp;(+${{basicInfo.shippingServiceCost}} for shipping)
+								{{/ifTrue}}
 
-					<i>&nbsp;&nbsp;&nbsp;Location: {{basicInfo.location}}</i>
+								<i>&nbsp;&nbsp;Location: {{basicInfo.location}}</i>
 
-					{{#ifTrue basicInfo.topRatedListing "true" }}
-					<img class="toprated" src="http://cs-server.usc.edu:45678/hw/hw6/itemTopRated.jpg">
-					{{/ifTrue}}
+								{{#ifTrue basicInfo.topRatedListing "true" }}
+								<img class="toprated" src="http://cs-server.usc.edu:45678/hw/hw6/itemTopRated.jpg">
+								{{/ifTrue}}
 
-					<a class="viewdetails" data-toggle="collapse" href="#collapse{{@index}}" aria-expanded="false" aria-controls="collapse{{@index}}">View Details</a>
+								<a class="viewdetails" data-toggle="collapse" href="#collapse{{@index}}" aria-expanded="false" aria-controls="collapse{{@index}}">View Details</a>
 
-					<img class="fblogo" src="http://cs-server.usc.edu:45678/hw/hw8/fb.png">
+								<img class="fblogo" src="http://cs-server.usc.edu:45678/hw/hw8/fb.png">
 
-				</span>
-				<div class="collapse" id="collapse{{@index}}">
-					<div role="tabpanel">
+							</span>
+						</div>
+					</div>
+					<div class="collapse col-xs-12 col-sm-10 col-md-9 col-lg-5" id="collapse{{@index}}">
 
-						<!-- Nav tabs -->
-						<ul class="nav nav-tabs" role="tablist">
-							<li role="presentation" class="active"><a href="#basic{{@index}}" aria-controls="basic{{@index}}" role="tab" data-toggle="tab">Basic Info</a></li>
-							<li role="presentation"><a href="#seller{{@index}}" aria-controls="seller{{@index}}" role="tab" data-toggle="tab">Seller Info</a></li>
-							<li role="presentation"><a href="#shipping{{@index}}" aria-controls="shipping{{@index}}" role="tab" data-toggle="tab">Shipping Info</a></li>
-						</ul>
-
-						<!-- Tab panes -->
-						<div class="tab-content">
-							<div role="tabpanel" class="tab-pane active" id="basic{{@index}}">
-								<div class="row"> 
-									<div class="col-md-4">
-										Category name
-									</div>
-									<div class="col-md-6">
-										{{basicInfo.categoryName}}
-									</div>
-								</div>
-								<div class="row"> 
-									<div class="col-md-4">
-										Condition
-									</div>
-									<div class="col-md-6">
-										{{basicInfo.conditionDisplayName}}
-									</div>
-								</div>
-								<div class="row"> 
-									<div class="col-md-4">
-										Buying Format
-									</div>
-									<div class="col-md-6">
-										{{basicInfo.conditionDisplayName}}
-									</div>
-								</div>
+						<div role="tabpanel">
+							<div class="row">
+								<!-- Nav tabs -->
+								<ul class="nav nav-tabs" role="tablist">
+									<li role="presentation" class="active"><a href="#basic{{@index}}" aria-controls="basic{{@index}}" role="tab" data-toggle="tab">Basic Info</a></li>
+									<li role="presentation"><a href="#seller{{@index}}" aria-controls="seller{{@index}}" role="tab" data-toggle="tab">Seller Info</a></li>
+									<li role="presentation"><a href="#shipping{{@index}}" aria-controls="shipping{{@index}}" role="tab" data-toggle="tab">Shipping Info</a></li>
+								</ul>
 							</div>
+							<!-- Tab panes -->
+							<div class="tab-content">
+								<div role="tabpanel" class="tab-pane active" id="basic{{@index}}">
+									<div class="row"> 
+										<div class="col-xs-12 col-sm-4 col-md-6" style="font-weight:bold;">
+											Category
+										</div>
+										<div class="col-xs-12 col-sm-4 col-md-5">
+											{{basicInfo.categoryName}}
+										</div>
+									</div>
+									<div class="row"> 
+										<div class="col-xs-12 col-sm-4 col-md-6" style="font-weight:bold;">
+											Condition
+										</div>
+										<div class="col-xs-12 col-sm-4 col-md-5">
+											{{basicInfo.conditionDisplayName}}
+										</div>
+									</div>
+									<div class="row"> 
+										<div class="col-xs-12 col-sm-4 col-md-6" style="font-weight:bold;">
+											Buying Format
+										</div>
+										<div class="col-xs-12 col-sm-4 col-md-5">
+											{{basicInfo.conditionDisplayName}}
+										</div>
+									</div>
+								</div>
 
-							<div role="tabpanel" class="tab-pane" id="seller{{@index}}">
-								<div class="row"> 
-									<div class="col-md-4">
-										User name
+								<div role="tabpanel" class="tab-pane" id="seller{{@index}}">
+									<div class="row"> 
+										<div class="col-xs-12 col-sm-4 col-md-6" style="font-weight:bold;">
+											User name
+										</div>
+										<div class="col-xs-12 col-sm-4 col-md-5">
+											{{sellerInfo.sellerUserName}}
+										</div>
 									</div>
-									<div class="col-md-6">
-										{{sellerInfo.sellerUserName}}
+									<div class="row"> 
+										<div class="col-xs-12 col-sm-4 col-md-6" style="font-weight:bold;">
+											Feedback score
+										</div>
+										<div class="col-xs-12 col-sm-4 col-md-5">
+											{{sellerInfo.feedbackScore}}
+										</div>
 									</div>
-								</div>
-								<div class="row"> 
-									<div class="col-md-4">
-										Feedback score
+									<div class="row"> 
+										<div class="col-xs-12 col-sm-4 col-md-6" style="font-weight:bold;">
+											Positive feedback
+										</div>
+										<div  class="col-xs-12 col-sm-4 col-md-5">
+											{{sellerInfo.positiveFeedbackPercent}}%
+										</div>
 									</div>
-									<div class="col-md-6">
-										{{sellerInfo.feedbackScore}}
+									<div class="row"> 
+										<div class="col-xs-12 col-sm-4 col-md-6" style="font-weight:bold;">
+											Feedback rating
+										</div>
+										<div class="col-xs-12 col-sm-4 col-md-5">
+											{{sellerInfo.feedbackRatingStar}}
+										</div>
 									</div>
-								</div>
-								<div class="row"> 
-									<div class="col-md-4">
-										Positive feedback
+									<div class="row"> 
+										<div class="col-xs-12 col-sm-4 col-md-6" style="font-weight:bold;">
+											Top rated
+										</div>
+										<div class="col-xs-12 col-sm-4 col-md-5">
+											{{#ifTrue sellerInfo.topRatedSeller "true"}}
+											<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+											{{else}}
+											<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+											{{/ifTrue}}
+										</div>
 									</div>
-									<div class="col-md-6">
-										{{sellerInfo.positiveFeedbackPercent}}%
-									</div>
-								</div>
-								<div class="row"> 
-									<div class="col-md-4">
-										Feedback rating
-									</div>
-									<div class="col-md-6">
-										{{sellerInfo.feedbackRatingStar}}
-									</div>
-								</div>
-								<div class="row"> 
-									<div class="col-md-4">
-										Top rated
-									</div>
-									<div class="col-md-6">
-										{{#ifTrue sellerInfo.topRatedSeller "true"}}
-										<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-										{{else}}
-										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-										{{/ifTrue}}
-									</div>
-								</div>
-								<div class="row"> 
-									<div class="col-md-4">
-										Store
-									</div>
-									<div class="col-md-6">
-										<a href="{{sellerInfo.sellerStoreURL}}" target="_blank">{{sellerInfo.sellerStoreName}}</a>
-									</div>
-								</div>
-							</div>
-							
-							<div role="tabpanel" class="tab-pane" id="shipping{{@index}}">
-								<div class="row"> 
-									<div class="col-md-4">
-										Shipping type
-									</div>
-									<div class="col-md-6">
-										{{shippingInfo.shippingType}}
+									<div class="row"> 
+										<div class="col-xs-12 col-sm-4 col-md-6" style="font-weight:bold;">
+											Store
+										</div>
+										<div class="col-xs-12 col-sm-4 col-md-5">
+											<a href="{{sellerInfo.sellerStoreURL}}" target="_blank">{{sellerInfo.sellerStoreName}}</a>
+										</div>
 									</div>
 								</div>
-								<div class="row"> 
-									<div class="col-md-4">
-										Handling time
+
+								<div role="tabpanel" class="tab-pane" id="shipping{{@index}}">
+									<div class="row"> 
+										<div class="col-xs-12 col-sm-4 col-md-6" style="font-weight:bold;">
+											Shipping type
+										</div>
+										<div class="col-xs-12 col-sm-4 col-md-5">
+											{{shippingInfo.shippingType}}
+										</div>
 									</div>
-									<div class="col-md-6">
-										{{shippingInfo.handlingTime}} day(s)
+									<div class="row"> 
+										<div class="col-xs-12 col-sm-4 col-md-6" style="font-weight:bold;">
+											Handling time
+										</div>
+										<div class="col-xs-12 col-sm-4 col-md-5">
+											{{shippingInfo.handlingTime}} day(s)
+										</div>
 									</div>
-								</div>
-								<div class="row"> 
-									<div class="col-md-4">
-										Shipping loactions
+									<div class="row"> 
+										<div class="col-xs-12 col-sm-4 col-md-6" style="font-weight:bold;">
+											Shipping loactions
+										</div>
+										<div class="col-xs-12 col-sm-4 col-md-5">
+											{{shippingInfo.shipToLocations}}
+										</div>
 									</div>
-									<div class="col-md-6">
-										{{shippingInfo.shipToLocations}}
+									<div class="row"> 
+										<div class="col-xs-12 col-sm-4 col-md-6" style="font-weight:bold;">
+											Expedited shipping
+										</div>
+										<div class="col-xs-12 col-sm-4 col-md-5">
+											{{#ifTrue shippingInfo.expeditedShipping "true"}}
+											<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+											{{else}}
+											<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+											{{/ifTrue}}
+										</div>
 									</div>
-								</div>
-								<div class="row"> 
-									<div class="col-md-4">
-										Expedited shipping
+									<div class="row"> 
+										<div class="col-xs-12 col-sm-4 col-md-6" style="font-weight:bold;">
+											One day shipping 
+										</div>
+										<div class="col-xs-12 col-sm-4 col-md-5">
+											{{#ifTrue shippingInfo.oneDayShippingAvailable "true"}}
+											<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+											{{else}}
+											<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+											{{/ifTrue}}
+										</div>
 									</div>
-									<div class="col-md-6">
-										{{#ifTrue shippingInfo.expeditedShipping "true"}}
-										<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-										{{else}}
-										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-										{{/ifTrue}}
-									</div>
-								</div>
-								<div class="row"> 
-									<div class="col-md-4">
-										One day shipping 
-									</div>
-									<div class="col-md-6">
-										{{#ifTrue shippingInfo.oneDayShippingAvailable "true"}}
-										<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-										{{else}}
-										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-										{{/ifTrue}}
-									</div>
-								</div>
-								<div class="row"> 
-									<div class="col-md-4">
-										Returns accepted
-									</div>
-									<div class="col-md-6">
-										{{#ifTrue shippingInfo.returnsAccepted "true"}}
-										<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-										{{else}}
-										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-										{{/ifTrue}}
+									<div class="row"> 
+										<div class="col-xs-12 col-sm-4 col-md-6" style="font-weight:bold;">
+											Returns accepted
+										</div>
+										<div class="col-xs-12 col-sm-4 col-md-5">
+											{{#ifTrue shippingInfo.returnsAccepted "true"}}
+											<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+											{{else}}
+											<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+											{{/ifTrue}}
+										</div>
 									</div>
 								</div>
 							</div>
@@ -223,198 +230,186 @@
 	</script>
 	<div class="container-fluid" id="header">
 		<div class="row">
-			<div class="col-md-6 col-md-push-3" id="top">
-				<p id="heading">
+			<div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-offset-3" id="top">
+				<span id="heading">
 					<img id="logo" src="http://cs-server.usc.edu:45678/hw/hw8/ebay.jpg">
 					Shopping
-				</p>
+				</span>
 			</div>
 		</div>
 	</div>
 	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-9 col-md-push-2">
-				<form class="form-horizontal" id="search-form">
-					<!-- Key words -->
-					<div class="form-group">
-						<div class="row">
-							<div class="col-sm-12 col-md-3">
-								<label for="inputKeyWords" class="control-label">Key words*</label>
-							</div>
-							<div class="col-sm-12 col-md-6">
-								<input type="text" class="form-control" id="inputKeyWords" name="keywords" placeholder="Enter keyword">
-							</div>
-						</div>
-
-					</div>
-					<!-- Price range -->
-					<div class="form-group">
-						<div class="row">
-							<div class="col-sm-12 col-md-3">
-								<label for="priceRange" class="control-label">Price range</label>
-							</div>
-							<div class="col-sm-12 col-md-3">
-								<input type="text" class="form-control" id="minPrice" name="minPrice" placeholder="from($)">								
-							</div>
-							<div class="col-sm-12 col-md-3">
-								<input type="text" class="form-control" id="maxPrice" name="maxPrice" placeholder="to($)">								
-							</div>
-						</div>
-					</div>
-					<!-- Condition checkboxes -->
-					<div class="form-group">
-						<div class="row">
-							<div class="col-sm-12 col-md-3">
-								<label for="condition" class="control-label">Condition</label>
-							</div>
-							<div class="col-sm-12 col-md-6">
-								<div class="checkbox-inline">
-									<input type="checkbox" name="new" id="new">New</input>
-								</div>
-								<div class="checkbox-inline">
-									<input type="checkbox" name="used" id="used">Used</input>
-								</div>
-								<div class="checkbox-inline">
-									<input type="checkbox" name="veryGood" id="veryGood">Very Good</input>
-								</div>
-								<div class="checkbox-inline">
-									<input type="checkbox" name="good" id="good">Good</input>
-								</div>
-								<div class="checkbox-inline" id="accept">
-									<input type="checkbox" name="acceptable" id="acceptable">Acceptable</input>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Buying Formats -->
-					<div class="form-group">
-						<div class="row">
-							<div class="col-sm-12 col-md-3">
-								<label for="buyingFormat" class="control-label">Buying Formats</label>
-							</div>
-							<div class="col-sm-12 col-md-6">
-								<div class="checkbox-inline">
-									<input type="checkbox" name="buyItNow" id="buyItNow">Buy it now
-								</div>
-								<div class="checkbox-inline">
-									<input type="checkbox" name="auction" id="auction">Auction
-								</div>
-								<div class="checkbox-inline">
-									<input type="checkbox" name="classifiedAds" id="classifiedAds">Classified Ads
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Seller  -->
-					<div class="form-group">
-						<div class="row">
-							<div class="col-sm-12 col-md-3">
-								<label for="seller" class="control-label">Seller</label>
-							</div>
-							<div class="col-sm-12 col-md-6">
-								<div class="checkbox-inline">
-									<input type="checkbox" name="returnAccepted" id="returnAccepted">Return accepted
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Shipping -->
-					<div class="form-group">
-						<div class="row">
-							<div class="col-sm-12 col-md-3">
-								<label for="shipping" class="control-label">Shipping</label>
-							</div>
-							<div class="col-sm-12 col-md-6">
-								<div class="checkbox-inline">
-									<input type="checkbox" name="freeShipping" id="freeShipping">Free Shipping
-								</div>
-								<div class="checkbox-inline">
-									<input type="checkbox" name="expeditedShipping" id="expeditedShipping">Expedited Shipping
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Max handling days -->
-					<div class="form-group">
-						<div class="row">
-							<div class="col-sm-12 col-md-6 col-md-push-3">
-								<input type="text" class="form-control" id="maxHandlingDays" name="maxHandlingDays" placeholder="Max Handling Time (days)">
-							</div>
-						</div>
-					</div>
-					<!-- Sort By -->
-					<div class="form-group">
-						<div class="row">
-							<div class="col-sm-12 col-md-3">
-								<label for="sortBy" class="control-label">Sort by</label>
-							</div>
-							<div class="col-sm-12 col-md-6">
-								<select class="form-control" id="sortOrder">
-									<option value="BestMatch">Best Match</option>
-									<option value="CurrentPriceHighest">Price: highest first</option>
-									<option value="PricePlusShippingHighest">Price+Shipping: highest first</option>
-									<option value="PricePlusShippingLowest">Price+Shipping: lowest first</option>
-								</select>
-							</div>
-						</div>
-					</div>
-					<!-- Results per page -->
-					<div class="form-group">
-						<div class="row">
-							<div class="col-sm-12 col-md-3">
-								<label for="resultsPerPage" class="control-label">Results per page</label>
-							</div>
-							<div class="col-sm-12 col-md-6">
-								<select class="form-control" id="resultsPerPage">
-									<option value="5">5</option>
-									<option value="10">10</option>
-									<option value="15">15</option>
-									<option value="20">20</option>
-								</select>
-							</div>
-						</div>
-					</div>
-					<!-- Buttons -->
-					<div class="form-group">
-						<div class="row">
-							<div class="col-sm-12 col-md-6 col-md-push-3">
-								<button type="reset" class="btn btn-default">Clear</button>
-								<button type="submit" class="btn btn-primary paginate" id="submit">Search</button>
-							</div>
-						</div>
-					</div>
-				</form>				
-			</div>
-		</div>
-		<div class="container-fluid" id="results">
-			<div class="col-sm-12 col-md-7 col-md-push-3" id="resultlist">
+		<!-- <div class="row"> -->
+		<!-- <div class="col-md-8 col-md-push-2"> -->
+		<form class="form-horizontal" id="search-form">
+			<!-- Key words -->
+			<div class="form-group">
 				<div class="row">
-					<div id="pagestat">
+					<div class="col-xs-12 col-sm-4 col-md-4">
+						<label for="inputKeyWords" class="control-label">Key words*</label>
 					</div>
-					<div id="resultset">
-
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<input type="text" class="form-control" id="inputKeyWords" name="keywords" placeholder="Enter keyword">
 					</div>
-					<div id="pagebar">
-						<nav>
-							<ul class="pagination">
-								<li>
-									<a href="" class="paginate" aria-label="Previous" id="previous">&laquo;
-										<!-- <span aria-hidden="true">&laquo;</span> -->
-									</a>
-								</li>
-								<li><a id="1" href="" class="page paginate">1</a></li>
-								<li><a id="2" href="" class="page paginate">2</a></li>
-								<li><a id="3" href="" class="page paginate">3</a></li>
-								<li><a id="4" href="" class="page paginate">4</a></li>
-								<li><a id="5" href="" class="page paginate">5</a></li>
-								<li>
-									<a href="" class="paginate" aria-label="Next" id="next">&raquo;
-										<!-- <span aria-hidden="true">&raquo;</span> -->
-									</a>
-								</li>
-							</ul>
-						</nav>
+				</div>
+			</div>
+			<!-- Price range -->
+			<div class="form-group">
+				<div class="row">
+					<div class="col-xs-12 col-sm-4 col-md-4">
+						<label for="priceRange" class="control-label">Price range</label>
 					</div>
+					<div class="col-xs-12 col-sm-3 col-md-2">
+						<input type="text" class="form-control" id="minPrice" name="minPrice" placeholder="from($)">								
+					</div>
+					<div class="col-xs-12 col-sm-3 col-md-2">
+						<input type="text" class="form-control" id="maxPrice" name="maxPrice" placeholder="to($)">					
+					</div>
+				</div>
+			</div>
+			<!-- Condition checkboxes -->
+			<div class="form-group">
+				<div class="row">
+					<div class="col-xs-12 col-sm-4 col-md-4">
+						<label for="condition" class="control-label">Condition</label>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="checkbox-inline">
+							<input type="checkbox" name="new" id="new">New</input>
+						</div>
+						<div class="checkbox-inline">
+							<input type="checkbox" name="used" id="used">Used</input>
+						</div>
+						<div class="checkbox-inline">
+							<input type="checkbox" name="veryGood" id="veryGood">Very Good</input>
+						</div>
+						<div class="checkbox-inline">
+							<input type="checkbox" name="good" id="good">Good</input>
+						</div>
+						<div class="checkbox-inline" id="accept">
+							<input type="checkbox" name="acceptable" id="acceptable">Acceptable</input>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Buying Formats -->
+			<div class="form-group">
+				<div class="row">
+					<div class="col-xs-12 col-sm-4 col-md-4">
+						<label for="buyingFormat" class="control-label">Buying Formats</label>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="checkbox-inline">
+							<input type="checkbox" name="buyItNow" id="buyItNow">Buy it now
+						</div>
+						<div class="checkbox-inline">
+							<input type="checkbox" name="auction" id="auction">Auction
+						</div>
+						<div class="checkbox-inline">
+							<input type="checkbox" name="classifiedAds" id="classifiedAds">Classified Ads
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Seller  -->
+			<div class="form-group">
+				<div class="row">
+					<div class="col-xs-12 col-sm-4 col-md-4">
+						<label for="seller" class="control-label">Seller</label>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="checkbox-inline">
+							<input type="checkbox" name="returnAccepted" id="returnAccepted">Return accepted
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Shipping -->
+			<div class="form-group">
+				<div class="row">
+					<div class="col-xs-12 col-sm-4 col-md-4">
+						<label for="shipping" class="control-label">Shipping</label>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<div class="checkbox-inline">
+							<input type="checkbox" name="freeShipping" id="freeShipping">Free Shipping
+						</div>
+						<div class="checkbox-inline">
+							<input type="checkbox" name="expeditedShipping" id="expeditedShipping">Expedited Shipping
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Max handling days -->
+			<div class="form-group">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-sm-offset-4 col-md-4">
+						<input type="text" class="form-control" id="maxHandlingDays" name="maxHandlingDays" placeholder="Max Handling Time (days)">
+					</div>
+				</div>
+			</div>
+			<!-- Sort By -->
+			<div class="form-group">
+				<div class="row">
+					<div class="col-xs-12 col-sm-4 col-md-4">
+						<label for="sortBy" class="control-label">Sort by</label>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<select class="form-control" id="sortOrder">
+							<option value="BestMatch">Best Match</option>
+							<option value="CurrentPriceHighest">Price: highest first</option>
+							<option value="PricePlusShippingHighest">Price+Shipping: highest first</option>
+							<option value="PricePlusShippingLowest">Price+Shipping: lowest first</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<!-- Results per page -->
+			<div class="form-group">
+				<div class="row">
+					<div class="col-xs-12 col-sm-4 col-md-4">
+						<label for="resultsPerPage" class="control-label">Results per page</label>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<select class="form-control" id="resultsPerPage">
+							<option value="5">5</option>
+							<option value="10">10</option>
+							<option value="15">15</option>
+							<option value="20">20</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<!-- Buttons -->
+			<div class="form-group">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-sm-offset-4 col-md-4">
+						<button type="reset" class="btn btn-default">Clear</button>
+						<button type="submit" class="btn btn-primary paginate" id="submit">Search</button>
+					</div>
+				</div>
+			</div>
+		</form>				
+		<!-- </div> -->
+		<!-- </div> -->
+		<div class="row"> 
+			<div id="results">
+				<div id="pagestat" class="col-sm-offset-1 col-md-offset-3 col-lg-offset-4">
+				</div>
+				<div id="resultset" class="col-md-offset-2 col-lg-offset-4">
+				</div>
+				<div id="pagebar" class="col-sm-offset-1 col-md-offset-3 col-lg-offset-4">
+					<nav>
+						<ul class="pagination">
+							<li><a href="" class="paginate" aria-label="Previous" id="previous">&laquo;</a></li>
+							<li><a id="1" href="" class="page paginate">1</a></li>
+							<li><a id="2" href="" class="page paginate">2</a></li>
+							<li><a id="3" href="" class="page paginate">3</a></li>
+							<li><a id="4" href="" class="page paginate">4</a></li>
+							<li><a id="5" href="" class="page paginate">5</a></li>
+							<li><a href="" class="paginate" aria-label="Next" id="next">&raquo;</a></li>
+						</ul>
+					</nav>
 				</div>
 			</div>
 		</div>
