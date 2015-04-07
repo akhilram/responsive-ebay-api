@@ -276,6 +276,10 @@
                 // addMediaObj(output[key], count);
                 var thisI = output[key];
                 output[key].shippingInfo.shippingType = output[key].shippingInfo.shippingType.replace(/([A-Z])/g, " $1");
+                if(output[key].basicInfo.listingType == 'FixedPrice' || output[key].basicInfo.listingType == 'StoreInventory')
+                    output[key].basicInfo.listingType = 'Buy it now';
+                else if (output[key].basicInfo.listingType == 'Classified')
+                    output[key].basicInfo.listingType = 'Classified Ad';
                 count++;
                 itemArray.push(output[key]);
             }
@@ -313,10 +317,16 @@
             picture: img.src,
             link: link,
             caption: 'Search information from ebay.com',
-            title: title.innerHTML,
+            name: title.innerHTML,
             description: desc,
 
-        }, function(response){});
+        }, function(response){
+            if (response && !response.error_code) {
+              alert('Posting completed.');
+          } else {
+            alert('Not posted');
+          }
+      });
         return false;
     }
 

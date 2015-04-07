@@ -18,8 +18,9 @@
 		{{#each items}}
 		<div class="mediaelement">
 			<div class="row">
-				<div class="media-left media-top col-xs-3 col-sm-2 col-md-1">
-					<a href="#" data-toggle="modal" data-target=".item{{@index}}"><img class="media-object image-thump" src="{{basicInfo.galleryURL}}"></a>
+				<div class="media-left media-top col-xs-3 col-sm-2 col-md-2 col-lg-2">
+					
+					<img class="media-object image-thump" src="{{basicInfo.galleryURL}}" data-toggle="modal" data-target=".item{{@index}}">
 					<div class="modal fade item{{@index}}" tabindex="-1" aria-labelledby="item{{@index}}" aria-hidden="true" role="dialog">
 						<div class="modal-dialog modal-lg">
 							<div class="modal-content">
@@ -57,13 +58,11 @@
 								{{/ifTrue}}
 
 								<a class="viewdetails" data-toggle="collapse" href="#collapse{{@index}}" aria-expanded="false" aria-controls="collapse{{@index}}">View Details</a>
-
 								<img class="fblogo" src="http://cs-server.usc.edu:45678/hw/hw8/fb.png">
-
 							</span>
 						</div>
 					</div>
-					<div class="collapse col-xs-12 col-sm-10 col-md-9 col-lg-5" id="collapse{{@index}}">
+					<div class="collapse col-xs-12 col-lg-8" id="collapse{{@index}}">
 
 						<div role="tabpanel">
 							<div class="row">
@@ -98,7 +97,7 @@
 											Buying Format
 										</div>
 										<div class="col-xs-12 col-sm-4 col-md-5">
-											{{basicInfo.conditionDisplayName}}
+											{{basicInfo.listingType}}
 										</div>
 									</div>
 								</div>
@@ -230,7 +229,7 @@
 	</script>
 	<div class="container-fluid" id="header">
 		<div class="row">
-			<div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-offset-3" id="top">
+			<div id="top" class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-1 col-lg-6 col-lg-offset-2">
 				<span id="heading">
 					<img id="logo" src="http://cs-server.usc.edu:45678/hw/hw8/ebay.jpg">
 					Shopping
@@ -238,183 +237,193 @@
 			</div>
 		</div>
 	</div>
-	<div class="container-fluid">
-		<!-- <div class="row"> -->
-		<!-- <div class="col-md-8 col-md-push-2"> -->
-		<form class="form-horizontal" id="search-form">
-			<!-- Key words -->
-			<div class="form-group">
-				<div class="row">
-					<div class="col-xs-12 col-sm-4 col-md-4">
-						<label for="inputKeyWords" class="control-label">Key words*</label>
+	<div class="container-fluid" id="search">
+		<div class="row">
+			<div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-1 col-lg-6 col-lg-offset-2">
+				<form class="form-horizontal" id="search-form">
+					<!-- Key words -->
+					<div class="form-group">
+						<div class="row">
+							<div class="col-xs-12 col-sm-4 col-md-4">
+								<label for="inputKeyWords" class="control-label">Key words*</label>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-8">
+								<input type="text" class="form-control" id="inputKeyWords" name="keywords" placeholder="Enter keyword">
+							</div>
+						</div>
 					</div>
-					<div class="col-xs-12 col-sm-6 col-md-4">
-						<input type="text" class="form-control" id="inputKeyWords" name="keywords" placeholder="Enter keyword">
+					<!-- Price range -->
+					<div class="form-group">
+						<div class="row">
+							<div class="col-xs-12 col-sm-4 col-md-4">
+								<label for="priceRange" class="control-label">Price range</label>
+							</div>
+							<div class="col-xs-12 col-sm-3 col-md-4">
+								<input type="text" class="form-control" id="minPrice" name="minPrice" placeholder="from($)">								
+							</div>
+							<div class="col-xs-12 col-sm-3 col-md-4">
+								<input type="text" class="form-control" id="maxPrice" name="maxPrice" placeholder="to($)">					
+							</div>
+						</div>
 					</div>
-				</div>
+					<!-- Condition checkboxes -->
+					<div class="form-group">
+						<div class="row">
+							<div class="col-xs-12 col-sm-4 col-md-4">
+								<label for="condition" class="control-label">Condition</label>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-8">
+								<div class="checkbox-inline">
+									<input type="checkbox" name="new" id="new">New</input>
+								</div>
+								<div class="checkbox-inline">
+									<input type="checkbox" name="used" id="used">Used</input>
+								</div>
+								<div class="checkbox-inline">
+									<input type="checkbox" name="veryGood" id="veryGood">Very Good</input>
+								</div>
+								<div class="checkbox-inline">
+									<input type="checkbox" name="good" id="good">Good</input>
+								</div>
+								<div class="checkbox-inline" id="accept">
+									<input type="checkbox" name="acceptable" id="acceptable">Acceptable</input>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Buying Formats -->
+					<div class="form-group">
+						<div class="row">
+							<div class="col-xs-12 col-sm-4 col-md-4">
+								<label for="buyingFormat" class="control-label">Buying Formats</label>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-8">
+								<div class="checkbox-inline">
+									<input type="checkbox" name="buyItNow" id="buyItNow">Buy it now
+								</div>
+								<div class="checkbox-inline">
+									<input type="checkbox" name="auction" id="auction">Auction
+								</div>
+								<div class="checkbox-inline">
+									<input type="checkbox" name="classifiedAds" id="classifiedAds">Classified Ads
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Seller  -->
+					<div class="form-group">
+						<div class="row">
+							<div class="col-xs-12 col-sm-4 col-md-4">
+								<label for="seller" class="control-label">Seller</label>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-8">
+								<div class="checkbox-inline">
+									<input type="checkbox" name="returnAccepted" id="returnAccepted">Return accepted
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Shipping -->
+					<div class="form-group">
+						<div class="row">
+							<div class="col-xs-12 col-sm-4 col-md-4">
+								<label for="shipping" class="control-label">Shipping</label>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-8">
+								<div class="checkbox-inline">
+									<input type="checkbox" name="freeShipping" id="freeShipping">Free Shipping
+								</div>
+								<div class="checkbox-inline">
+									<input type="checkbox" name="expeditedShipping" id="expeditedShipping">Expedited Shipping
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Max handling days -->
+					<div class="form-group">
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-sm-offset-4 col-md-8 col-md-offset-4">
+								<input type="text" class="form-control" id="maxHandlingDays" name="maxHandlingDays" placeholder="Max Handling Time (days)">
+							</div>
+						</div>
+					</div>
+					<!-- Sort By -->
+					<div class="form-group">
+						<div class="row">
+							<div class="col-xs-12 col-sm-4 col-md-4">
+								<label for="sortBy" class="control-label">Sort by</label>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-8">
+								<select class="form-control" id="sortOrder">
+									<option value="BestMatch">Best Match</option>
+									<option value="CurrentPriceHighest">Price: highest first</option>
+									<option value="PricePlusShippingHighest">Price+Shipping: highest first</option>
+									<option value="PricePlusShippingLowest">Price+Shipping: lowest first</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<!-- Results per page -->
+					<div class="form-group">
+						<div class="row">
+							<div class="col-xs-12 col-sm-4 col-md-4">
+								<label for="resultsPerPage" class="control-label">Results per page</label>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-8">
+								<select class="form-control" id="resultsPerPage">
+									<option value="5">5</option>
+									<option value="10">10</option>
+									<option value="15">15</option>
+									<option value="20">20</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<!-- Buttons -->
+					<div class="form-group">
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-sm-offset-4 col-md-4">
+								<button type="reset" class="btn btn-default">Clear</button>
+								<button type="submit" class="btn btn-primary paginate" id="submit">Search</button>
+							</div>
+						</div>
+					</div>
+				</form>
 			</div>
-			<!-- Price range -->
-			<div class="form-group">
+		</div>			
+	</div>
+	<div class="container-fluid" id="output">
+		<div class="row">
+			<div id="results" class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
 				<div class="row">
-					<div class="col-xs-12 col-sm-4 col-md-4">
-						<label for="priceRange" class="control-label">Price range</label>
-					</div>
-					<div class="col-xs-12 col-sm-3 col-md-2">
-						<input type="text" class="form-control" id="minPrice" name="minPrice" placeholder="from($)">								
-					</div>
-					<div class="col-xs-12 col-sm-3 col-md-2">
-						<input type="text" class="form-control" id="maxPrice" name="maxPrice" placeholder="to($)">					
+					<div id="pagestat">
 					</div>
 				</div>
-			</div>
-			<!-- Condition checkboxes -->
-			<div class="form-group">
 				<div class="row">
-					<div class="col-xs-12 col-sm-4 col-md-4">
-						<label for="condition" class="control-label">Condition</label>
-					</div>
-					<div class="col-xs-12 col-sm-6 col-md-4">
-						<div class="checkbox-inline">
-							<input type="checkbox" name="new" id="new">New</input>
-						</div>
-						<div class="checkbox-inline">
-							<input type="checkbox" name="used" id="used">Used</input>
-						</div>
-						<div class="checkbox-inline">
-							<input type="checkbox" name="veryGood" id="veryGood">Very Good</input>
-						</div>
-						<div class="checkbox-inline">
-							<input type="checkbox" name="good" id="good">Good</input>
-						</div>
-						<div class="checkbox-inline" id="accept">
-							<input type="checkbox" name="acceptable" id="acceptable">Acceptable</input>
-						</div>
+					<div id="resultset">
 					</div>
 				</div>
-			</div>
-			<!-- Buying Formats -->
-			<div class="form-group">
 				<div class="row">
-					<div class="col-xs-12 col-sm-4 col-md-4">
-						<label for="buyingFormat" class="control-label">Buying Formats</label>
+					<div id="pagebar">
+						<nav>
+							<ul class="pagination">
+								<li><a href="" class="paginate" aria-label="Previous" id="previous">&laquo;</a></li>
+								<li><a id="1" href="" class="page paginate">1</a></li>
+								<li><a id="2" href="" class="page paginate">2</a></li>
+								<li><a id="3" href="" class="page paginate">3</a></li>
+								<li><a id="4" href="" class="page paginate">4</a></li>
+								<li><a id="5" href="" class="page paginate">5</a></li>
+								<li><a href="" class="paginate" aria-label="Next" id="next">&raquo;</a></li>
+							</ul>
+						</nav>
 					</div>
-					<div class="col-xs-12 col-sm-6 col-md-4">
-						<div class="checkbox-inline">
-							<input type="checkbox" name="buyItNow" id="buyItNow">Buy it now
-						</div>
-						<div class="checkbox-inline">
-							<input type="checkbox" name="auction" id="auction">Auction
-						</div>
-						<div class="checkbox-inline">
-							<input type="checkbox" name="classifiedAds" id="classifiedAds">Classified Ads
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Seller  -->
-			<div class="form-group">
-				<div class="row">
-					<div class="col-xs-12 col-sm-4 col-md-4">
-						<label for="seller" class="control-label">Seller</label>
-					</div>
-					<div class="col-xs-12 col-sm-6 col-md-4">
-						<div class="checkbox-inline">
-							<input type="checkbox" name="returnAccepted" id="returnAccepted">Return accepted
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Shipping -->
-			<div class="form-group">
-				<div class="row">
-					<div class="col-xs-12 col-sm-4 col-md-4">
-						<label for="shipping" class="control-label">Shipping</label>
-					</div>
-					<div class="col-xs-12 col-sm-6 col-md-4">
-						<div class="checkbox-inline">
-							<input type="checkbox" name="freeShipping" id="freeShipping">Free Shipping
-						</div>
-						<div class="checkbox-inline">
-							<input type="checkbox" name="expeditedShipping" id="expeditedShipping">Expedited Shipping
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Max handling days -->
-			<div class="form-group">
-				<div class="row">
-					<div class="col-xs-12 col-sm-6 col-sm-offset-4 col-md-4">
-						<input type="text" class="form-control" id="maxHandlingDays" name="maxHandlingDays" placeholder="Max Handling Time (days)">
-					</div>
-				</div>
-			</div>
-			<!-- Sort By -->
-			<div class="form-group">
-				<div class="row">
-					<div class="col-xs-12 col-sm-4 col-md-4">
-						<label for="sortBy" class="control-label">Sort by</label>
-					</div>
-					<div class="col-xs-12 col-sm-6 col-md-4">
-						<select class="form-control" id="sortOrder">
-							<option value="BestMatch">Best Match</option>
-							<option value="CurrentPriceHighest">Price: highest first</option>
-							<option value="PricePlusShippingHighest">Price+Shipping: highest first</option>
-							<option value="PricePlusShippingLowest">Price+Shipping: lowest first</option>
-						</select>
-					</div>
-				</div>
-			</div>
-			<!-- Results per page -->
-			<div class="form-group">
-				<div class="row">
-					<div class="col-xs-12 col-sm-4 col-md-4">
-						<label for="resultsPerPage" class="control-label">Results per page</label>
-					</div>
-					<div class="col-xs-12 col-sm-6 col-md-4">
-						<select class="form-control" id="resultsPerPage">
-							<option value="5">5</option>
-							<option value="10">10</option>
-							<option value="15">15</option>
-							<option value="20">20</option>
-						</select>
-					</div>
-				</div>
-			</div>
-			<!-- Buttons -->
-			<div class="form-group">
-				<div class="row">
-					<div class="col-xs-12 col-sm-6 col-sm-offset-4 col-md-4">
-						<button type="reset" class="btn btn-default">Clear</button>
-						<button type="submit" class="btn btn-primary paginate" id="submit">Search</button>
-					</div>
-				</div>
-			</div>
-		</form>				
-		<!-- </div> -->
-		<!-- </div> -->
-		<div class="row"> 
-			<div id="results">
-				<div id="pagestat" class="col-sm-offset-1 col-md-offset-3 col-lg-offset-4">
-				</div>
-				<div id="resultset" class="col-md-offset-2 col-lg-offset-4">
-				</div>
-				<div id="pagebar" class="col-sm-offset-1 col-md-offset-3 col-lg-offset-4">
-					<nav>
-						<ul class="pagination">
-							<li><a href="" class="paginate" aria-label="Previous" id="previous">&laquo;</a></li>
-							<li><a id="1" href="" class="page paginate">1</a></li>
-							<li><a id="2" href="" class="page paginate">2</a></li>
-							<li><a id="3" href="" class="page paginate">3</a></li>
-							<li><a id="4" href="" class="page paginate">4</a></li>
-							<li><a id="5" href="" class="page paginate">5</a></li>
-							<li><a href="" class="paginate" aria-label="Next" id="next">&raquo;</a></li>
-						</ul>
-					</nav>
 				</div>
 			</div>
 		</div>
-		<div class="col-sm-12 col-md-7 col-md-push-3" id="failure">
-			<p>No results found</p>
+		<div class="row">
+			<div id="failure" class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+				<p>No results found</p>
+			</div>
 		</div>
 	</div>
 </body>
