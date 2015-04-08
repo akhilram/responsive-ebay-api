@@ -76,7 +76,7 @@
 	body {
 		padding: 10px;
 	}
-	#pagestat{
+	#pagestat, #failure{
 		font-size: 15pt;
 	}
 	#top {
@@ -104,7 +104,7 @@
 	body {
 		padding: 10px;
 	}
-	#pagestat{
+	#pagestat, #failure{
 		font-size: 15pt;
 	}
 	/*#top {
@@ -146,7 +146,7 @@
 		width: 3%;
 		margin-left: 10px;
 	}
-	#pagestat{
+	#pagestat, #failure{
 		font-size: 15pt;
 	}
 
@@ -179,7 +179,7 @@
 		width: 3%;
 		margin-left: 10px;
 	}
-	#pagestat{
+	#pagestat, #failure{
 		font-size: 15pt;
 	}
 	.media-heading{
@@ -204,7 +204,7 @@
 		width: 3%;
 		margin-left: 10px;
 	}
-	#pagestat{
+	#pagestat, #failure{
 		font-size: 15pt;
 	}
 	.media-heading{

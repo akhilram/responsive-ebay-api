@@ -234,7 +234,11 @@
         for (var i=0; i<allPages.length; i++) {
             allPages[i].parentNode.className = "";
             if(parseInt(allPages[i].innerHTML) > maxpage) {
-                allPages[i].parentNode.className = "disabled";
+                // allPages[i].parentNode.className = "disabled";
+                allPages[i].parentNode.style.display = "none";
+            }
+            else {
+                allPages[i].parentNode.style.display = "inline";   
             }
         }
         

@@ -1,1 +1,1 @@
-readme
+A responsive portal that provides an elegant and simplified eBay shopping experience.
